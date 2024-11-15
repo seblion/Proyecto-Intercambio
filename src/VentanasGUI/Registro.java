@@ -7,11 +7,14 @@ import Logica.GestorEstudiante;
 
 public class Registro {
     public JPanel panel1;
-    private JTextField Nombre;
-    private JTextField Contrasena;
+    private JTextField nombre;
+    private JTextField apellido;
+    private JTextField correo;
+    private JTextField celular;
+    private JTextField usuario;
+    private JTextField clave;
     private JButton guardarEstudianteButton;
-    private JTextField Correo;
-    private JTextField Celular;
+    private JPasswordField claveConf;
 
     public Registro() {
         guardarEstudianteButton.addActionListener(new ActionListener() {
@@ -23,22 +26,29 @@ public class Registro {
     }
 
     private void guardarDatos() {
-        String nombre = Nombre.getText();
-        String contrasena = Contrasena.getText();
-        String celular = Celular.getText();
-        String correo = Correo.getText();
+        String nombre = this.nombre.getText();
+        String apellido = this.apellido.getText();
+        String correo = this.correo.getText();
+        String celular = this.celular.getText();
+        String usuario = this.usuario.getText();
+        String clave = this.clave.getText();
+        String claveCof = this.claveConf.getText();
 
-        if (nombre.isEmpty() || contrasena.isEmpty()|| celular.isEmpty()|| correo.isEmpty()) {
+        if (nombre.isEmpty() || apellido.isEmpty()|| correo.isEmpty()||celular.isEmpty()|| usuario.isEmpty()|| clave.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Por favor, complete todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
+        } else if (!claveCof.trim().equals(clave.trim())) {
+            JOptionPane.showMessageDialog(null, "La clave no coincide");
         } else {
-           boolean estudianteRegistrado = GestorEstudiante.registrarEstudiante(nombre,celular,contrasena,correo);
-            if (estudianteRegistrado) {
-                JOptionPane.showMessageDialog(null, "Estudiante registrado satisfactoriamente:" +
-                        "\nNombre: " + nombre  + "\nCelular: " + celular + "\nContraseña: " + contrasena + "\nCorreo: " + correo);
-            } else {
-                JOptionPane.showMessageDialog(null, "El estudiante ya existe / datos incorrectos");
-
-            }
+           int estudianteRegistrado = GestorEstudiante.registrarEstudiante(nombre, apellido, correo, celular, usuario, clave);
+           switch (estudianteRegistrado){
+               case 1: JOptionPane.showMessageDialog(null, "Estudiante registrado satisfactoriamente:" +
+                       "\n" + nombre + " " + apellido + "\ncorreo: " + correo + "\ncelular: " + celular  );
+               break;
+               case -1: JOptionPane.showMessageDialog(null, "El correo no pertenece a la institucion");
+                   break;
+               case -2: JOptionPane.showMessageDialog(null, "El estudiante ya existe / datos incorrectos");
+                   break;
+           }
         }
     }
 

@@ -5,7 +5,7 @@ package Persistencia;
 
 import java.sql.*;
 
-public abstract class DAO {
+public  abstract class DAO {
 
     protected Connection conexion = null;
     protected Statement sentencia = null;
