@@ -3,17 +3,23 @@ package Logica;
 import Persistencia.EstudianteDAO;
 
 public class Estudiante {
-    private final Persistencia.EstudianteDAO dao;
+    private static Persistencia.EstudianteDAO dao;
+    private String idEstudiante;
     private String nombre;
-    private String celular;
-    private String contrasena;
+    private String apellido;
     private String correo;
+    private String celular;
+    private String usuario;
+    private String clave;
 
-    public Estudiante(String nombre, String celular, String contrasena, String correo) {
+    public Estudiante( String nombre, String apellido, String correo, String celular, String usuario, String clave) {
+        this.idEstudiante = null;
         this.nombre = nombre;
+        this.apellido = apellido;
         this.celular = celular;
-        this.contrasena = contrasena;
         this.correo = correo;
+        this.usuario = usuario;
+        this.clave = clave;
         this.dao = new EstudianteDAO();
     }
 
@@ -23,18 +29,22 @@ public class Estudiante {
 
     @Override
     public String toString() {
-        return nombre +
-                "','" + contrasena +
-                "','" + celular + "','" + correo ;
+        return idEstudiante +
+                "','" + nombre +
+                "','" + apellido + "','" + correo + "','" +celular +
+                "','" +usuario + "','" +  clave ;
+
     }
 
-    public boolean guardarEstudiante() { //todo: no es muy descriptivo crearPerfil
+    public String registro() {
+        return nombre +
+                "','" + apellido + "','" + correo + "','" +celular +
+                "','" +usuario + "','" +  clave ;
 
-        try {
-            this.dao.guardarEstudiante(this.toString());
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
+    }
+
+
+    public void guardarEstudiante() throws Exception {
+        this.dao.guardarEstudiante(this.registro());
     }
 }
