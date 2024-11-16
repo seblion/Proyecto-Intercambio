@@ -14,10 +14,15 @@ public class GUIPrincipal extends JFrame {
         mainPanel = new JPanel(cardLayout);
         Inicio inicio = new Inicio (this);
         Registro registro = new Registro(this);
+        Interaccion interaccion = new Interaccion(this);
+        RealizaPublicacion realizaPublicacion = new RealizaPublicacion(this);
 
         mainPanel.add(inicio.getPanel(),"Inicio");
         mainPanel.add(registro.getPanel(),"Registro");
+        mainPanel.add(interaccion.getPanel(),"Interaccion");
+        mainPanel.add(realizaPublicacion.getPanel(),"RealizaPublicacion");
         cardLayout.show(mainPanel,"Inicio");
+        //cardLayout.show(mainPanel,"Interaccion");
         add(mainPanel);
         setLocationRelativeTo(null);
         setVisible(true);

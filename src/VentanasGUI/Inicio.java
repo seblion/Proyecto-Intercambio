@@ -18,11 +18,16 @@ public class Inicio {
 
     public Inicio(GUIPrincipal controlador) {
         this.controlador = controlador;
-
         registerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 controlador.cambiarVentana("Registro");
+            }
+        });
+        confirmacionButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controlador.cambiarVentana("Interaccion");
             }
         });
     }

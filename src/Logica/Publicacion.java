@@ -6,13 +6,19 @@ public class Publicacion {
     private String descripcion;
     private String imagen; // Puede ser null si no se agrega una imagen
     private String tipo; // "Producto" o "Servicio"
+    private boolean disponibilidad;
+    private Estudiante propietario;
+    private boolean proceso;
 
-    public Publicacion(int id, String titulo, String descripcion, String imagen, String tipo) {
+    public Publicacion(int id, String titulo, String descripcion, String tipo,Estudiante propietario) {
         this.id = id;
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.imagen = imagen;
         this.tipo = tipo;
+        this.disponibilidad = true;
+        this.proceso=false;
+        this.propietario = propietario;
     }
 
     public int getId() {
@@ -63,7 +69,23 @@ public class Publicacion {
                 ", descripcion= '" + descripcion + '\'' +
                 ", imagen= '" + (imagen != null ? imagen : " Sin imagen ") + '\'' +
                 ", tipo= '" + tipo + '\'' +
+                ", propietario= '"+propietario.getNombre()+ ""+propietario.getApellido()+'\''+
                 ' ';
+    }
+
+    public boolean estaDisponible() {
+        return disponibilidad;
+    }
+
+    public void marcarEnProceso() {
+        this.proceso = true;
+    }
+
+    public boolean perteneceA(Estudiante estudianteReceptor) {
+        if(this.propietario == null||estudianteReceptor==null){
+            return false;
+        }
+        return this.propietario.getIdEstudiante().equals(estudianteReceptor.getIdEstudiante());
     }
 }
 

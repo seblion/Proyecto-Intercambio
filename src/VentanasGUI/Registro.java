@@ -66,6 +66,5 @@ public class Registro {
         return panel1;
     }
 
-
 }
 

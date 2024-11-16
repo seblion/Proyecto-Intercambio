@@ -19,7 +19,6 @@ public class GestorEstudiante {
             return -2;
         }
     }
-
     private static boolean esCorreoEstudiantil(String correo) {
         return correo.contains("@epn.edu.ec");
     }

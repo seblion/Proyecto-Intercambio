@@ -47,4 +47,16 @@ public class Estudiante {
     public void guardarEstudiante() throws Exception {
         this.dao.guardarEstudiante(this.registro());
     }
+
+    public String getIdEstudiante() {
+        return idEstudiante;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
 }

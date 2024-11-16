@@ -17,7 +17,6 @@ public class Intercambio {
     private boolean aceptacionReceptor;
     public Intercambio(Estudiante estudianteOferente, Estudiante estudianteReceptor, Publicacion publicacion){
         this.idIntercambio = UUID.randomUUID().toString();
-        this.idIntercambio = UUID.randomUUID().toString();
         this.estudianteOferente = estudianteOferente;
         this.estudianteReceptor = estudianteReceptor;
         this.publicacionOferente = publicacionOferente;
@@ -65,5 +64,21 @@ public class Intercambio {
         } else {
             throw new IllegalStateException("El intercambio no está en proceso");
         }
+    }
+
+    public Publicacion getPublicacionReceptor() {
+        return publicacionReceptor;
+    }
+    public EstadoIntercambio getEstado() {
+        return estado;
+    }
+    public Publicacion getPublicacionOferente() {
+        return publicacionOferente;
+    }
+    public Estudiante getEstudianteOferente() {
+        return estudianteOferente;
+    }
+    public Estudiante getEstudianteReceptor() {
+        return estudianteReceptor;
     }
 }
