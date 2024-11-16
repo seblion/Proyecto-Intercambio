@@ -7,6 +7,11 @@ public class GestorIntercambio {
     public GestorIntercambio(IntercambioDAO intercambioDAO) {
         this.intercambioDAO = intercambioDAO;
     }
+
+    public GestorIntercambio() {
+
+    }
+
     public Intercambio iniciarIntercambio(Estudiante estudianteOferente, Estudiante estudianteReceptor, Publicacion publicacionOferente) {
         // Validar condiciones iniciales
         if (!validarCondicionesIniciales(estudianteOferente, estudianteReceptor, publicacionOferente)) {
