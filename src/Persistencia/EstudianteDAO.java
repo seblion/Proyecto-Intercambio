@@ -16,7 +16,6 @@ public  class EstudianteDAO extends DAO{
             try {
                 //Armado de la sentencia nativa query con el String pasado como parámetro
                 String sql = "INSERT INTO Estudiante (NOMBRE,APELLIDO,CORREO,CELULAR,USUARIO,CLAVE) VALUES ('" + estudiante + "')";
-
                 //Ejecuto el método para actualizar la base de datos que no devuelve ningún resultado
                 insertarModificarEliminar(sql);
 
