@@ -1,6 +1,8 @@
 package VentanasGUI;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Inicio {
     private JPanel inicio;
@@ -12,4 +14,19 @@ public class Inicio {
     private JPasswordField contrasenaPasswordField;
     private JButton confirmacionButton;
     private JLabel label1;
+    private GUIPrincipal controlador;
+
+    public Inicio(GUIPrincipal controlador) {
+        this.controlador = controlador;
+
+        registerButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controlador.cambiarVentana("Registro");
+            }
+        });
+    }
+    public JPanel getPanel(){
+        return inicio;
+    }
 }
