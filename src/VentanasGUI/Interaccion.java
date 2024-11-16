@@ -1,5 +1,6 @@
 package VentanasGUI;
 
+import Logica.Estudiante;
 import Logica.GestorPublicacion;
 
 import javax.swing.*;
@@ -13,6 +14,7 @@ public class Interaccion {
     private JButton ESTADODEMISINTERCAMBIOSButton;
     private JPanel interaccionPanel;
     private GUIPrincipal controlador;
+    private Estudiante estudianteActual;
     private GestorPublicacion gestorPublicacion;
 
     public Interaccion(GUIPrincipal controlador) {
@@ -26,7 +28,7 @@ public class Interaccion {
         verPublicacionesButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                gestorPublicacion.listarPublicaciones();
+                controlador.cambiarVentana("Publicaciones");
             }
         });
     }

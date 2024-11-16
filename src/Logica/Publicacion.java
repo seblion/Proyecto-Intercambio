@@ -40,6 +40,9 @@ public class Publicacion {
     public String getDescripcion() {
         return descripcion;
     }
+    public Estudiante getPropietario(){
+        return propietario;
+    }
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;

@@ -1,5 +1,7 @@
 package VentanasGUI;
 
+import Logica.Estudiante;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,8 +29,17 @@ public class Inicio {
         confirmacionButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                controlador.cambiarVentana("Interaccion");
-            }
+//                String usuario = usuarioTextField.getText();
+//                String contrasena = new String(contrasenaPasswordField.getPassword());
+//                //Estudiante estudianteVerificado = verificarCredenciales(usuario,contrasena);
+//                if(estudianteVerificado!= null){
+//                   controlador.setEstudianteActual(estudianteVerificado);
+                    controlador.cambiarVentana("Interaccion");
+//                }else {
+//                    JOptionPane.showMessageDialog(inicio,
+//                            "Usuario o contrasena incorrectos","Error de inicio de seesion", JOptionPane.ERROR_MESSAGE);
+                }
+//            }
         });
     }
     public JPanel getPanel(){
