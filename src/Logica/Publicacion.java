@@ -18,6 +18,10 @@ public class Publicacion {
         this.proceso=false;
     }
 
+    public Publicacion() {
+
+    }
+
     public int getId() {
         return id;
     }
@@ -84,6 +88,14 @@ public class Publicacion {
             return false;
         }
         return this.propietario.getIdEstudiante().equals(estudianteReceptor.getIdEstudiante());
+    }
+
+    public void setDisponibilidad(int disponibilidad) {
+        disponible = disponibilidad;
+    }
+
+    public void setPropietario(Estudiante propietario) {
+        this.propietario = propietario;
     }
 }
 

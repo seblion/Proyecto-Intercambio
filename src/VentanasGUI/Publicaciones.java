@@ -22,6 +22,8 @@ public class Publicaciones {
     private GUIPrincipal controlador;
     private DefaultTableModel modeloTabla;
     private Publicacion publicacionSeleccionada;
+    private Estudiante estudianteActual;
+    private GestorPublicacion gestorPublicacion;
 
 
     public Publicaciones(GUIPrincipal controlador){
@@ -29,17 +31,51 @@ public class Publicaciones {
         inicializarTabla();
         configurarEventos();
         cargarPublicaciones();
+        tablaPublicaciones.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if(!e.getValueIsAdjusting()){
+                    int selectedRow = tablaPublicaciones.getSelectedRow();
+                    if (selectedRow>=0){
+                        String titulo = (String) tablaPublicaciones.getValueAt(selectedRow,0);
+                    for (Publicacion pub : gestorPublicacion.getPublicaciones()){
+                            if (pub.getTitulo().equals(titulo)){
+                                publicacionSeleccionada = pub;
+                                mostrarDetallesPublicacion(pub);
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        });
     }
+
+//    private void cargarPublicaciones() {
+//        modeloTabla.setRowCount(0);
+//        GestorPublicacion gestorPublicacion = new GestorPublicacion();
+//        boolean recuperacion = gestorPublicacion.recopilarPublicaciones();
+//        for (Publicacion pub:gestorPublicacion.getPublicaciones()){
+//            if (!pub.getPropietario().equals(estudianteActual)){
+//                modeloTabla.addRow(new Object[]{
+//                        pub.getTitulo(),
+//                        pub.getPropietario().getNombre(),
+//                        pub.getTipo()
+//                });
+//            }
+//        }
+//
+//    }
 
     private void cargarPublicaciones() {
         modeloTabla.setRowCount(0);
-        GestorPublicacion gestorPublicacion = controlador.getGestorPublicacion();
-        Estudiante estudianteActual = controlador.getEstudianteActual();
+        gestorPublicacion = new GestorPublicacion();
+        boolean recuperacion = gestorPublicacion.recopilarPublicaciones();
         for (Publicacion pub:gestorPublicacion.getPublicaciones()){
             if (!pub.getPropietario().equals(estudianteActual)){
                 modeloTabla.addRow(new Object[]{
                         pub.getTitulo(),
-                        pub.getPropietario().getNombre(),
+                        pub.getPropietario().getNombre() + " " + pub.getPropietario().getApellido(),
                         pub.getTipo()
                 });
             }
@@ -70,11 +106,11 @@ public class Publicaciones {
         public void actionPerformed(ActionEvent e) {
             if (publicacionSeleccionada != null) {
                 try {
-                    controlador.getGestorIntercambio().iniciarIntercambio(
-                            controlador.getEstudianteActual(),
-                            publicacionSeleccionada.getPropietario(),
-                            publicacionSeleccionada
-                    );
+//                    estudianteActual.iniciarIntercambio(); .iniciarIntercambio(
+//                            controlador.getEstudianteActual(),
+//                            publicacionSeleccionada.getPropietario(),
+//                            publicacionSeleccionada
+//                    );
                     JOptionPane.showMessageDialog(publicacionesPanelPrincipal,
                             "Se ha enviado tu interés por la publicación",
                             "Éxito",
@@ -113,5 +149,9 @@ public class Publicaciones {
 
     public JPanel getPanel() {
         return publicacionesPanelPrincipal;
+    }
+
+    public void agregarEstudiante(Estudiante estudianteVerificado) {
+        estudianteActual = estudianteVerificado;
     }
 }

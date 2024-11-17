@@ -108,4 +108,8 @@ public class Estudiante {
     public int crearPublicacion(String titulo, String descripcion, String tipo) {
         return gestorPublicacion.agregarPublicacion(titulo, descripcion, tipo, this);
     }
+
+    public GestorPublicacion getGestorPublicacion() {
+        return gestorPublicacion;
+    }
 }

@@ -3,22 +3,24 @@
   <grid id="27dc6" binding="publicacionesPanelPrincipal" layout-manager="GridLayoutManager" row-count="3" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
-      <xy x="20" y="20" width="500" height="400"/>
+      <xy x="20" y="20" width="564" height="400"/>
     </constraints>
     <properties/>
     <border type="none"/>
     <children>
-      <grid id="c5ae4" binding="publicacionesListadoPanel" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+      <grid id="c5ae4" binding="publicacionesListadoPanel" layout-manager="GridLayoutManager" row-count="3" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
-          <grid row="0" column="0" row-span="2" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <grid row="0" column="0" row-span="2" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
+            <preferred-size width="298" height="79"/>
+          </grid>
         </constraints>
         <properties/>
         <border type="none"/>
         <children>
           <component id="cdf17" class="javax.swing.JLabel" binding="publicacionesTitutloLabel">
             <constraints>
-              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="0" column="0" row-span="1" col-span="3" vsize-policy="3" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <text value="PUBLICACIONES"/>
@@ -26,7 +28,7 @@
           </component>
           <component id="f90cd" class="javax.swing.JTable" binding="tablaPublicaciones">
             <constraints>
-              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
+              <grid row="2" column="0" row-span="1" col-span="3" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="50"/>
               </grid>
             </constraints>
@@ -34,11 +36,35 @@
               <selectionBackground color="-2472636"/>
             </properties>
           </component>
+          <component id="89010" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Titulo"/>
+            </properties>
+          </component>
+          <component id="ca39e" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Propietario"/>
+            </properties>
+          </component>
+          <component id="b47f6" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Tipo"/>
+            </properties>
+          </component>
         </children>
       </grid>
       <component id="c3638" class="javax.swing.JLabel">
         <constraints>
-          <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="10" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <text value="Descripcion"/>
@@ -55,7 +81,7 @@
           <component id="cd08e" class="javax.swing.JTextArea" binding="texto">
             <constraints>
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
-                <preferred-size width="150" height="50"/>
+                <preferred-size width="232" height="50"/>
               </grid>
             </constraints>
             <properties>
@@ -64,7 +90,7 @@
           </component>
           <scrollpane id="b29c1">
             <constraints>
-              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="4" fill="2" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties/>
             <border type="none"/>

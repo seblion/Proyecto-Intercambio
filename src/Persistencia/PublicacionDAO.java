@@ -1,9 +1,19 @@
 package Persistencia;
+import Logica.Estudiante;
 import Logica.Publicacion;
+
+import java.util.*;
+import java.util.List;
 
 public  class PublicacionDAO extends DAO{
 
-        /**
+    private EstudianteDAO daoEstudiante;
+
+    public PublicacionDAO() {
+        this.daoEstudiante = new EstudianteDAO();
+    }
+
+    /**
          * g) Ingresar una publicacion a la base de datos
          *
          * @param publicacion nombre de la publicacion a ingresar a la base de datos
@@ -25,7 +35,7 @@ public  class PublicacionDAO extends DAO{
 
 
 //        /**
-//         * Devolver estudiante segun el usuario
+//         * Devolver publicaciones segun el usuario
 //         *
 //         * @param usuario Usuario del estudiante a buscar
 //         * @return Estudiante correspondiente al recibido como parámetro
@@ -88,35 +98,41 @@ public  class PublicacionDAO extends DAO{
 //                desconectarBase();
 //            }
 //        }
-//
-//        /**
-//         * Listar los correos de los estudiantes
-//         *
-//         * @return ArrayList del tipo Fabricante con sus atributos guardados
-//         * @throws Exception
-//         */
-//        public Collection<Fabricante> listarFabricantes() throws Exception {
-//            try {
-//
-//                String sql = "SELECT * FROM fabricante";
-//                consultarBase(sql);
-//
-//                Fabricante fabricante;
-//                Collection<Fabricante> fabricantes = new ArrayList();
-//                while (resultado.next()) {
-//                    fabricante = new Fabricante();
-//                    fabricante.setCodigo(resultado.getInt(1));
-//                    fabricante.setNombre(resultado.getString(2));
-//                    fabricantes.add(fabricante);
-//                }
-//                return fabricantes;
-//
-//            } catch (Exception e) {
-//                throw e;
-//            } finally {
-//                desconectarBase();
-//            }
-//        }
+
+        /**
+         * Listar las publicaciones
+         *
+         * @return ArrayList del tipo Publicaciones con sus atributos guardados
+         * @throws Exception
+         */
+
+        public List<Publicacion> recuperarPublicaciones() throws Exception {
+            try {
+
+                String sql = "SELECT NOMBREPUB,DESCRIPCION,TIPO, DISPONIBILIDAD, IDESTUDIANTE FROM PUBLICACION";
+                consultarBase(sql);
+
+                Publicacion publicacion;
+                List<Publicacion> publicaciones = new ArrayList();
+                while (resultado.next()) {
+                    publicacion = new Publicacion();
+                    publicacion.setTitulo(resultado.getString(1).trim());
+                    publicacion.setDescripcion(resultado.getString(2).trim());
+                    publicacion.setTipo(resultado.getString(3).trim());
+                    publicacion.setDisponibilidad(resultado.getInt(4));
+                    int idPropietario = resultado.getInt(5);
+                    Estudiante propietario= this.daoEstudiante.devolverEstudiante(idPropietario);
+                    publicacion.setPropietario(propietario);
+                    publicaciones.add(publicacion);
+                }
+                return publicaciones;
+
+            } catch (Exception e) {
+                throw e;
+            } finally {
+                desconectarBase();
+            }
+        }
 
     }
 

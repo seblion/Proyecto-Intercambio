@@ -72,4 +72,13 @@ public class GestorPublicacion {
     public List<Publicacion> getPublicaciones() {
         return publicaciones;
     }
+
+    public boolean recopilarPublicaciones() {
+        try {
+            publicaciones = (List<Publicacion>) this.dao.recuperarPublicaciones();
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
 }
