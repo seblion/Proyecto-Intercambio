@@ -9,6 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class GUIPrincipal extends JFrame {
+    final RealizaPublicacion realizaPublicacion;
     private CardLayout cardLayout;
     private  JPanel mainPanel;
     private Estudiante estudianteActual;
@@ -29,7 +30,7 @@ public class GUIPrincipal extends JFrame {
         Inicio inicio = new Inicio (this);
         Registro registro = new Registro(this);
         interaccion = new Interaccion(this);
-        RealizaPublicacion realizaPublicacion = new RealizaPublicacion(this);
+        realizaPublicacion = new RealizaPublicacion(this);
         Publicaciones publicaciones = new Publicaciones(this);
 
         mainPanel.add(inicio.getPanel(),"Inicio");

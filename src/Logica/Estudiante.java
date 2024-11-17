@@ -4,6 +4,7 @@ import Persistencia.EstudianteDAO;
 
 public class Estudiante {
     private static Persistencia.EstudianteDAO dao;
+    private GestorPublicacion gestorPublicacion;
     private String idEstudiante;
     private String nombre;
 
@@ -50,10 +51,12 @@ public class Estudiante {
         this.usuario = usuario;
         this.clave = clave;
         this.dao = new EstudianteDAO();
+        this.gestorPublicacion = new GestorPublicacion();
     }
 
     public Estudiante() {
-
+        this.dao = new EstudianteDAO();
+        this.gestorPublicacion = new GestorPublicacion();
     }
 
     public static boolean existe(String correo) {
@@ -100,5 +103,9 @@ public class Estudiante {
 
     public String getUsuario() {
         return usuario;
+    }
+
+    public int crearPublicacion(String titulo, String descripcion, String tipo) {
+        return gestorPublicacion.agregarPublicacion(titulo, descripcion, tipo, this);
     }
 }

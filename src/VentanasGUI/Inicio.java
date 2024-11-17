@@ -38,6 +38,7 @@ public class Inicio {
                 Estudiante estudianteVerificado = gestorEstudiante.obtenerEstudiante(usuario,clave);
                 if(estudianteVerificado!=null){
                     controlador.interaccion.agregarEstudiante(estudianteVerificado);
+                    controlador.realizaPublicacion.agregarEstudiante(estudianteVerificado);
                     controlador.cambiarVentana("Interaccion");
                     //todo: se usa gestorEstudiante como manejador individual y general o solo Estudiante
                    controlador.setGestorEstudiante(gestorEstudiante);

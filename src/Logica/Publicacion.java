@@ -4,21 +4,18 @@ public class Publicacion {
     private int id;
     private String titulo;
     private String descripcion;
-    private String imagen; // Puede ser null si no se agrega una imagen
     private String tipo; // "Producto" o "Servicio"
-    private boolean disponibilidad;
+    private int disponible;
+    private boolean proceso; //todo
     private Estudiante propietario;
-    private boolean proceso;
 
-    public Publicacion(String titulo, String descripcion, String tipo,Estudiante propietario) {
-        this.id = id;
+    public Publicacion(String titulo, String descripcion, String tipo, Estudiante propietario) {
         this.titulo = titulo;
         this.descripcion = descripcion;
-        this.imagen = imagen;
         this.tipo = tipo;
-        this.disponibilidad = true;
-        this.proceso=false;
         this.propietario = propietario;
+        this.disponible = 1;
+        this.proceso=false;
     }
 
     public int getId() {
@@ -48,13 +45,6 @@ public class Publicacion {
         this.descripcion = descripcion;
     }
 
-    public String getImagen() {
-        return imagen;
-    }
-
-    public void setImagen(String imagen) {
-        this.imagen = imagen;
-    }
 
     public String getTipo() {
         return tipo;
@@ -70,14 +60,19 @@ public class Publicacion {
                 "id= " + id +
                 ", titulo= '" + titulo + '\'' +
                 ", descripcion= '" + descripcion + '\'' +
-                ", imagen= '" + (imagen != null ? imagen : " Sin imagen ") + '\'' +
                 ", tipo= '" + tipo + '\'' +
                 ", propietario= '"+propietario.getNombre()+ ""+propietario.getApellido()+'\''+
                 ' ';
     }
 
+    public String registro(){
+        return propietario.getIdEstudiante() +
+                "','" + titulo + "','" + descripcion + "','" +tipo +
+                "','" +disponible;
+    }
+
     public boolean estaDisponible() {
-        return disponibilidad;
+        return disponible==1;
     }
 
     public void marcarEnProceso() {

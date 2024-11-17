@@ -1,31 +1,38 @@
 package Logica;
 
+import Persistencia.PublicacionDAO;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class GestorPublicacion {
+    private final PublicacionDAO dao;
     private List<Publicacion> publicaciones;
-    private int contadorId; // Para asignar IDs únicos
 
     public GestorPublicacion() {
+        this.dao= new PublicacionDAO();
         publicaciones = new ArrayList<>();
-        contadorId = 1;
     }
 
     // Metodo para agregar una publicación
-    public void agregarPublicacion(String titulo, String descripcion, String tipo, Estudiante estudiante) {
-        Publicacion nuevaPublicacion = new Publicacion( titulo, descripcion, tipo,estudiante);
+    public int agregarPublicacion(String titulo, String descripcion, String tipo, Estudiante estudiante) {
+        Publicacion nuevaPublicacion = new Publicacion( titulo, descripcion, tipo, estudiante);
+
+        try {
+            this.dao.guardarPublicacion(nuevaPublicacion.registro());
+        } catch (Exception e) {
+            return -1;
+        }
         publicaciones.add(nuevaPublicacion);
-        System.out.println("Publicación agregada: " + nuevaPublicacion);
+        return 1;
     }
 
     // Metodo para editar una publicación por ID
-    public void editarPublicacion(int id, String nuevoTitulo, String nuevaDescripcion, String nuevaImagen, String nuevoTipo) {
+    public void editarPublicacion(int id, String nuevoTitulo, String nuevaDescripcion, String nuevoTipo) {
         for (Publicacion pub : publicaciones) {
             if (pub.getId() == id) {
                 pub.setTitulo(nuevoTitulo);
                 pub.setDescripcion(nuevaDescripcion);
-                pub.setImagen(nuevaImagen);
                 pub.setTipo(nuevoTipo);
                 System.out.println("Publicación actualizada: " + pub);
                 return;
