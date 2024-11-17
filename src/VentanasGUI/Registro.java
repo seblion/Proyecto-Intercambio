@@ -66,7 +66,8 @@ public class Registro {
         } else if (!claveCof.trim().equals(clave.trim())) {
             JOptionPane.showMessageDialog(null, "La clave no coincide");
         } else {
-           int estudianteRegistrado = GestorEstudiante.registrarEstudiante(nombre, apellido, correo, celular, usuario, clave);
+            GestorEstudiante x= new GestorEstudiante();
+           int estudianteRegistrado = x.registrarEstudiante(nombre, apellido, correo, celular, usuario, clave);
            switch (estudianteRegistrado){
                case 1: JOptionPane.showMessageDialog(null, "Estudiante registrado satisfactoriamente:" +
                        "\n" + nombre + " " + apellido + "\ncorreo: " + correo + "\ncelular: " + celular  );

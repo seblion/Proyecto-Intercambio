@@ -1,6 +1,7 @@
 package VentanasGUI;
 
 import Logica.Estudiante;
+import Logica.GestorEstudiante;
 import Logica.GestorIntercambio;
 import Logica.GestorPublicacion;
 
@@ -13,6 +14,7 @@ public class GUIPrincipal extends JFrame {
     private Estudiante estudianteActual;
     private GestorPublicacion gestorPublicacion;
     private GestorIntercambio gestorIntercambio;
+    private GestorEstudiante gestorEstudiante;
 
     public GUIPrincipal(){
         setTitle("Poli Trueque");
@@ -58,5 +60,9 @@ public class GUIPrincipal extends JFrame {
     }
     public static void main(String[] args) {
         new GUIPrincipal();
+    }
+
+    public void setGestorEstudiante(GestorEstudiante gestorEstudiante) {
+        this.gestorEstudiante = gestorEstudiante;
     }
 }

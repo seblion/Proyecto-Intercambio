@@ -1,11 +1,18 @@
 package Logica;
 
+import Persistencia.EstudianteDAO;
+
 public class GestorEstudiante {
 
+    private final EstudianteDAO dao;
+    private Estudiante estudianteActual;
+
     public GestorEstudiante() {
+        this.dao = new EstudianteDAO();
+        this.estudianteActual= null;
     }
 
-    public static int registrarEstudiante(String nombre, String apellido, String correo, String celular, String usuario, String clave){
+    public int registrarEstudiante(String nombre, String apellido, String correo, String celular, String usuario, String clave){
 
         if (!esCorreoEstudiantil(correo))
             return -1;
@@ -13,14 +20,31 @@ public class GestorEstudiante {
 
         //todo:analizar uso de interfaz
         try {
-            nuevoEstudiante.guardarEstudiante();
+            this.dao.guardarEstudiante(nuevoEstudiante.registro());
+
+//            nuevoEstudiante.guardarEstudiante();
             return 1;
         } catch (Exception e) {
             return -2;
         }
     }
+
     private static boolean esCorreoEstudiantil(String correo) {
         return correo.contains("@epn.edu.ec");
     }
 
+    public boolean obtenerEstudiante(String usuario, String claveIngresada){
+
+        try {
+            Estudiante estudiante = this.dao.devolverEstudiante(usuario);
+            if(estudiante.claveCorrecta(claveIngresada)){
+                estudianteActual = estudiante;
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
 }

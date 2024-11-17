@@ -6,6 +6,35 @@ public class Estudiante {
     private static Persistencia.EstudianteDAO dao;
     private String idEstudiante;
     private String nombre;
+
+    public void setIdEstudiante(String idEstudiante) {
+        this.idEstudiante = idEstudiante;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+
+    public void setCelular(String celular) {
+        this.celular = celular;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
+
+    public void setClave(String clave) {
+        this.clave = clave;
+    }
+
     private String apellido;
     private String correo;
     private String celular;
@@ -21,6 +50,10 @@ public class Estudiante {
         this.usuario = usuario;
         this.clave = clave;
         this.dao = new EstudianteDAO();
+    }
+
+    public Estudiante() {
+
     }
 
     public static boolean existe(String correo) {
@@ -44,10 +77,6 @@ public class Estudiante {
     }
 
 
-    public void guardarEstudiante() throws Exception {
-        this.dao.guardarEstudiante(this.registro());
-    }
-
     public String getIdEstudiante() {
         return idEstudiante;
     }
@@ -58,5 +87,9 @@ public class Estudiante {
 
     public String getApellido() {
         return apellido;
+    }
+
+    public boolean claveCorrecta(String claveIngresada) {
+        return this.clave.equals(claveIngresada);
     }
 }
