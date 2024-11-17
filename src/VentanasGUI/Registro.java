@@ -15,6 +15,7 @@ public class Registro {
     private JTextField clave;
     private JButton guardarEstudianteButton;
     private JPasswordField claveConf;
+    private JButton volverButton;
     private GUIPrincipal controlador;
 
 //    public Registro() {
@@ -34,7 +35,22 @@ public class Registro {
                 guardarDatos();
             }
         });
+        guardarEstudianteButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                guardarDatos();
+            }
+        });
+
+        volverButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controlador.cambiarVentana("Inicio");
+            }
+        });
     }
+
+
 
     private void guardarDatos() {
         String nombre = this.nombre.getText();
