@@ -83,11 +83,13 @@ public class Publicacion {
         this.proceso = true;
     }
 
-    public boolean perteneceA(Estudiante estudianteReceptor) {
-        if(this.propietario == null||estudianteReceptor==null){
+    public boolean perteneceA(String usuario) {
+        if(this.propietario == null||usuario==null){
             return false;
         }
-        return this.propietario.getIdEstudiante().equals(estudianteReceptor.getIdEstudiante());
+        String usuarioPropietario = this.propietario.getUsuario();
+        boolean x= usuarioPropietario.equals(usuario);
+        return x;
     }
 
     public void setDisponibilidad(int disponibilidad) {

@@ -11,6 +11,7 @@ import java.awt.*;
 public class GUIPrincipal extends JFrame {
     final RealizaPublicacion realizaPublicacion;
     final Publicaciones publicaciones;
+    final Ofertas1 ofertas;
     private CardLayout cardLayout;
     private  JPanel mainPanel;
     private Estudiante estudianteActual;
@@ -33,6 +34,7 @@ public class GUIPrincipal extends JFrame {
         interaccion = new Interaccion(this);
         realizaPublicacion = new RealizaPublicacion(this);
         publicaciones = new Publicaciones(this);
+        ofertas = new Ofertas1(this);
 
         mainPanel.add(inicio.getPanel(),"Inicio");
         mainPanel.add(registro.getPanel(),"Registro");

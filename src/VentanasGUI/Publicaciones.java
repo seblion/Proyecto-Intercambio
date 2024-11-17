@@ -106,18 +106,17 @@ public class Publicaciones {
         public void actionPerformed(ActionEvent e) {
             if (publicacionSeleccionada != null) {
                 try {
-//                    estudianteActual.iniciarIntercambio(); .iniciarIntercambio(
-//                            controlador.getEstudianteActual(),
-//                            publicacionSeleccionada.getPropietario(),
-//                            publicacionSeleccionada
-//                    );
+
+                    int Resultado = estudianteActual.iniciarIntercambio(publicacionSeleccionada);
+                    if(Resultado==-1)
+                        throw new RuntimeException();
                     JOptionPane.showMessageDialog(publicacionesPanelPrincipal,
                             "Se ha enviado tu interés por la publicación",
                             "Éxito",
                             JOptionPane.INFORMATION_MESSAGE);
-                } catch (IllegalStateException ex) {
+                } catch (Exception ex) {
                     JOptionPane.showMessageDialog(publicacionesPanelPrincipal,
-                            ex.getMessage(),
+                            "No se pudo seleccionar la publicación",
                             "Error",
                             JOptionPane.ERROR_MESSAGE);
                 }

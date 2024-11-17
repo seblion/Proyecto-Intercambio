@@ -7,6 +7,7 @@ public class Estudiante {
     private GestorPublicacion gestorPublicacion;
     private String idEstudiante;
     private String nombre;
+    private GestorIntercambio gestorIntercambio;
 
     public void setIdEstudiante(String idEstudiante) {
         this.idEstudiante = idEstudiante;
@@ -52,11 +53,15 @@ public class Estudiante {
         this.clave = clave;
         this.dao = new EstudianteDAO();
         this.gestorPublicacion = new GestorPublicacion();
+        this.gestorIntercambio = new GestorIntercambio();
+
     }
 
     public Estudiante() {
         this.dao = new EstudianteDAO();
         this.gestorPublicacion = new GestorPublicacion();
+        this.gestorIntercambio = new GestorIntercambio();
+
     }
 
     public static boolean existe(String correo) {
@@ -111,5 +116,11 @@ public class Estudiante {
 
     public GestorPublicacion getGestorPublicacion() {
         return gestorPublicacion;
+    }
+
+    public int iniciarIntercambio(Publicacion publicacionSeleccionada) {
+        if (this.getUsuario()==publicacionSeleccionada.getPropietario().getUsuario())
+            return -1;
+        return gestorIntercambio.iniciarIntercambio(this,publicacionSeleccionada);
     }
 }

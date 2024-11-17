@@ -1,9 +1,7 @@
 package Logica;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 public class Intercambio {
     private String idIntercambio;
@@ -11,16 +9,14 @@ public class Intercambio {
     private Estudiante estudianteReceptor;
     private Publicacion publicacionOferente;
     private Publicacion publicacionReceptor;
-    private LocalDateTime fechaIntercambio;
     private EstadoIntercambio estado;
     private boolean aceptacionOferente;
     private boolean aceptacionReceptor;
-    public Intercambio(Estudiante estudianteOferente, Estudiante estudianteReceptor, Publicacion publicacion){
-        this.idIntercambio = UUID.randomUUID().toString();
+    public Intercambio(Estudiante estudianteOferente, Publicacion publicacion){
+        this.idIntercambio = null;
         this.estudianteOferente = estudianteOferente;
-        this.estudianteReceptor = estudianteReceptor;
-        this.publicacionOferente = publicacionOferente;
-        this.fechaIntercambio = LocalDateTime.now();
+        this.estudianteReceptor = publicacion.getPropietario();
+        this.publicacionOferente = publicacion;
         this.estado = EstadoIntercambio.PENDIENTE_CONFIRMACION;
         this.aceptacionOferente = true;  // El oferente acepta por defecto su propia oferta
         this.aceptacionReceptor = false;
@@ -60,7 +56,6 @@ public class Intercambio {
     public void terminarIntercambio(){
         if (this.estado == EstadoIntercambio.EN_PROCESO) {
             this.estado = EstadoIntercambio.COMPLETADO;
-            this.fechaIntercambio = LocalDateTime.now();
         } else {
             throw new IllegalStateException("El intercambio no está en proceso");
         }
@@ -80,5 +75,9 @@ public class Intercambio {
     }
     public Estudiante getEstudianteReceptor() {
         return estudianteReceptor;
+    }
+
+    public String registroInicial() {
+        return String.valueOf(estado) + "','"+ estudianteOferente.getIdEstudiante();
     }
 }

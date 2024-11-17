@@ -1,28 +1,36 @@
 package Logica;
 
 import Persistencia.IntercambioDAO;
+import Persistencia.PublicacionDAO;
 
 public class GestorIntercambio {
     private IntercambioDAO intercambioDAO;
-    public GestorIntercambio(IntercambioDAO intercambioDAO) {
-        this.intercambioDAO = intercambioDAO;
-    }
+    private PublicacionDAO publicacionDAO;
 
     public GestorIntercambio() {
-
+        intercambioDAO = new IntercambioDAO();
+        publicacionDAO = new PublicacionDAO();
     }
 
-    public Intercambio iniciarIntercambio(Estudiante estudianteOferente, Estudiante estudianteReceptor, Publicacion publicacionOferente) {
-        // Validar condiciones iniciales
-        if (!validarCondicionesIniciales(estudianteOferente, estudianteReceptor, publicacionOferente)) {
-            throw new IllegalStateException("No se cumplen las condiciones para iniciar el intercambio");
+    public int iniciarIntercambio(Estudiante estudianteOferente, Publicacion publicacionOferente) {
+        // Validar condiciones iniciales //todo: revisar lo de disponibilidad
+        if (!validarCondicionesIniciales(estudianteOferente, publicacionOferente) || !publicacionDAO.hayDisponibilidad(publicacionOferente.getId())) {
+            return -1;
         }
-        Intercambio nuevoIntercambio = new Intercambio(estudianteOferente, estudianteReceptor, publicacionOferente);
-        return intercambioDAO.guardar(nuevoIntercambio);
+        Intercambio nuevoIntercambio = new Intercambio(estudianteOferente, publicacionOferente);
+
+        try {
+            int idIntercambio = intercambioDAO.guardar(nuevoIntercambio);
+            publicacionDAO.vincularIntercambio(idIntercambio, publicacionOferente.getId());
+        } catch (Exception e) {
+            return -1;
+        }
+        return 1;
     }
+
     public void proponerContraoferta(Intercambio intercambio, Publicacion publicacionReceptor) {
     // Validar que la publicación pertenezca al receptor
-    if (!publicacionReceptor.perteneceA(intercambio.getEstudianteReceptor())) {
+    if (!publicacionReceptor.perteneceA(intercambio.getEstudianteReceptor().getUsuario())) {
         throw new IllegalArgumentException("La publicación debe pertenecer al receptor");
     }
     // Validar que la publicación esté disponible
@@ -57,13 +65,9 @@ public void rechazarPropuesta(Intercambio intercambio, Estudiante estudiante) {
     intercambio.rechazarIntercambio(estudiante);
     intercambioDAO.actualizar(intercambio);
 }
-    private boolean validarCondicionesIniciales(Estudiante estudianteOferente, Estudiante estudianteReceptor, Publicacion publicacion) {
-        return
-//                estudianteOferente.estaActiva() &&
-//                estudianteReceptor.estaActiva() &&
-                publicacion.estaDisponible() &&
-//                publicacion.perteneceA(estudianteOferente) &&
-                !intercambioDAO.existenIntercambiosPendientes(estudianteOferente, estudianteReceptor);
+    private boolean validarCondicionesIniciales(Estudiante estudianteOferente,  Publicacion publicacion) {
+        boolean x = publicacion.estaDisponible() && !publicacion.perteneceA(estudianteOferente.getUsuario()) ;
+        return x;
     }
     private boolean esParticipante(Estudiante estudiante, Intercambio intercambio) {
     return estudiante.equals(intercambio.getEstudianteOferente()) ||

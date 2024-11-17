@@ -109,7 +109,7 @@ public  class PublicacionDAO extends DAO{
         public List<Publicacion> recuperarPublicaciones() throws Exception {
             try {
 
-                String sql = "SELECT NOMBREPUB,DESCRIPCION,TIPO, DISPONIBILIDAD, IDESTUDIANTE FROM PUBLICACION";
+                String sql = "SELECT NOMBREPUB,DESCRIPCION,TIPO, DISPONIBILIDAD, IDESTUDIANTE, IDPUBLICACION FROM PUBLICACION";
                 consultarBase(sql);
 
                 Publicacion publicacion;
@@ -123,6 +123,7 @@ public  class PublicacionDAO extends DAO{
                     int idPropietario = resultado.getInt(5);
                     Estudiante propietario= this.daoEstudiante.devolverEstudiante(idPropietario);
                     publicacion.setPropietario(propietario);
+                    publicacion.setId(resultado.getInt(6));
                     publicaciones.add(publicacion);
                 }
                 return publicaciones;
@@ -134,5 +135,35 @@ public  class PublicacionDAO extends DAO{
             }
         }
 
+    public void vincularIntercambio(int idIntercambio, int idPub) throws Exception {
+        try {
+            //Armado de la sentencia nativa query con el String pasado como parámetro
+            String sql = "UPDATE PUBLICACION SET IDINTERCAMBIO = '" + idIntercambio + "', DISPONIBILIDAD = 0 where IDPUBLICACION = " + idPub;
+            //Ejecuto el método para actualizar la base de datos que no devuelve ningún resultado
+            insertarModificarEliminar(sql);
+
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            desconectarBase();
+        }
     }
+
+    public boolean hayDisponibilidad(int id) throws RuntimeException {
+        try {
+            String sql = "SELECT 1 FROM PUBLICACION WHERE IDPUBLICACION = "+id+" AND DISPONIBILIDAD = 1;";
+            consultarBase(sql);
+            int i=0;
+            if (resultado.next()) {
+                if(i==1)
+                // Si hay al menos una fila en el resultado, significa que el ID existe
+                return false;
+                i++;
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+            return true;
+    }
+}
 

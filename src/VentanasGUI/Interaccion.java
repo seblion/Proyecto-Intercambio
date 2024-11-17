@@ -9,7 +9,7 @@ import java.awt.event.ActionListener;
 
 public class Interaccion {
     private JButton verPublicacionesButton;
-    private JButton VERMISOFERTASButton;
+    private JButton verMisOfertasButton;
     private JButton realizarPublicacionButton;
     private JButton ESTADODEMISINTERCAMBIOSButton;
     private JPanel interaccionPanel;
@@ -32,6 +32,13 @@ public class Interaccion {
             @Override
             public void actionPerformed(ActionEvent e) {
                 controlador.cambiarVentana("Publicaciones");
+            }
+        });
+
+        verMisOfertasButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controlador.cambiarVentana("Oferta");
             }
         });
     }
