@@ -13,7 +13,7 @@ import java.awt.event.ActionListener;
 
 public class Publicaciones {
     private JTable tablaPublicaciones;
-    private JTextArea descripcionTextArea;
+    private JTextArea texto;
     private JButton hacerOfertaButton;
     private JPanel panelDescripcion;
     private JLabel publicacionesTitutloLabel;
@@ -101,13 +101,13 @@ public class Publicaciones {
         tablaPublicaciones.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         tablaPublicaciones.getTableHeader().setReorderingAllowed(false);
 
-        descripcionTextArea.setEditable(false);
-        descripcionTextArea.setWrapStyleWord(true);
-        descripcionTextArea.setLineWrap(true);
+        texto.setEditable(false);
+        texto.setWrapStyleWord(true);
+        texto.setLineWrap(true);
         hacerOfertaButton.setEnabled(false);
     }
     private void mostrarDetallesPublicacion(Publicacion pub) {
-        descripcionTextArea.setText(pub.getDescripcion());
+        texto.setText(pub.getDescripcion());
         hacerOfertaButton.setEnabled(true);
     }
 

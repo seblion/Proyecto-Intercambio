@@ -14,7 +14,7 @@ public class GestorPublicacion {
 
     // Metodo para agregar una publicación
     public void agregarPublicacion(String titulo, String descripcion, String tipo, Estudiante estudiante) {
-        Publicacion nuevaPublicacion = new Publicacion(contadorId++, titulo, descripcion, tipo,estudiante);
+        Publicacion nuevaPublicacion = new Publicacion( titulo, descripcion, tipo,estudiante);
         publicaciones.add(nuevaPublicacion);
         System.out.println("Publicación agregada: " + nuevaPublicacion);
     }

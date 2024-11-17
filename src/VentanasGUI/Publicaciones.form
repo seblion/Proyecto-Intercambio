@@ -24,7 +24,7 @@
               <text value="PUBLICACIONES"/>
             </properties>
           </component>
-          <component id="f90cd" class="javax.swing.JTable" binding="tablaPublicaciones" custom-create="true">
+          <component id="f90cd" class="javax.swing.JTable" binding="tablaPublicaciones">
             <constraints>
               <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="50"/>
@@ -52,13 +52,15 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="cd08e" class="javax.swing.JTextArea" binding="descripcionTextArea">
+          <component id="cd08e" class="javax.swing.JTextArea" binding="texto">
             <constraints>
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="50"/>
               </grid>
             </constraints>
-            <properties/>
+            <properties>
+              <text value=""/>
+            </properties>
           </component>
           <scrollpane id="b29c1">
             <constraints>
