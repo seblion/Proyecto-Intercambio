@@ -10,7 +10,7 @@ public class Publicacion {
     private Estudiante propietario;
     private boolean proceso;
 
-    public Publicacion(int id, String titulo, String descripcion, String tipo,Estudiante propietario) {
+    public Publicacion(String titulo, String descripcion, String tipo,Estudiante propietario) {
         this.id = id;
         this.titulo = titulo;
         this.descripcion = descripcion;

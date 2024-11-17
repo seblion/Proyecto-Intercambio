@@ -15,6 +15,8 @@ public class GUIPrincipal extends JFrame {
     private GestorPublicacion gestorPublicacion;
     private GestorIntercambio gestorIntercambio;
     private GestorEstudiante gestorEstudiante;
+    Interaccion interaccion;
+
 
     public GUIPrincipal(){
         setTitle("Poli Trueque");
@@ -26,7 +28,7 @@ public class GUIPrincipal extends JFrame {
         gestorIntercambio = new GestorIntercambio();
         Inicio inicio = new Inicio (this);
         Registro registro = new Registro(this);
-        Interaccion interaccion = new Interaccion(this);
+        interaccion = new Interaccion(this);
         RealizaPublicacion realizaPublicacion = new RealizaPublicacion(this);
         Publicaciones publicaciones = new Publicaciones(this);
 
@@ -65,4 +67,7 @@ public class GUIPrincipal extends JFrame {
     public void setGestorEstudiante(GestorEstudiante gestorEstudiante) {
         this.gestorEstudiante = gestorEstudiante;
     }
+
+
+
 }

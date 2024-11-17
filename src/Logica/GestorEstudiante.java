@@ -33,18 +33,18 @@ public class GestorEstudiante {
         return correo.contains("@epn.edu.ec");
     }
 
-    public boolean obtenerEstudiante(String usuario, String claveIngresada){
+    public Estudiante obtenerEstudiante(String usuario, String claveIngresada){
 
         try {
             Estudiante estudiante = this.dao.devolverEstudiante(usuario);
             if(estudiante.claveCorrecta(claveIngresada)){
                 estudianteActual = estudiante;
             } else {
-                return false;
+                return null;
             }
         } catch (Exception e) {
-            return false;
+            return null;
         }
-        return true;
+        return estudianteActual;
     }
 }

@@ -92,4 +92,13 @@ public class Estudiante {
     public boolean claveCorrecta(String claveIngresada) {
         return this.clave.equals(claveIngresada);
     }
+
+    public String getDatosIdentidad() {
+        return "Nombre: " + nombre + " " + apellido +
+                "'\n Usuario: " +usuario;
+    }
+
+    public String getUsuario() {
+        return usuario;
+    }
 }

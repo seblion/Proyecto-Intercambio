@@ -35,8 +35,9 @@ public class Inicio {
             public void actionPerformed(ActionEvent e) {
                 String usuario = usuarioTextField.getText();
                 String clave = new String(contrasenaPasswordField.getPassword());
-                boolean estudianteVerificado = gestorEstudiante.obtenerEstudiante(usuario,clave);
-                if(estudianteVerificado){
+                Estudiante estudianteVerificado = gestorEstudiante.obtenerEstudiante(usuario,clave);
+                if(estudianteVerificado!=null){
+                    controlador.interaccion.agregarEstudiante(estudianteVerificado);
                     controlador.cambiarVentana("Interaccion");
                     //todo: se usa gestorEstudiante como manejador individual y general o solo Estudiante
                    controlador.setGestorEstudiante(gestorEstudiante);
