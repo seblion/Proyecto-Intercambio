@@ -1,0 +1,45 @@
+@startuml
+'https://plantuml.com/class-diagram
+package Logica{
+class GestorEstudiante {
+- dao : EstudianteDAO
+- estudianteActual : Estudiante
+}
+class GestorPublicacion {
+- dao : PublicacionDAO
+- publicaciones :
+}
+class Estudiante {
+}
+class Intercambio {
+}
+class Publicacion {
+}
+class GestorIntercambio {
+}
+enum EstadoIntercambio {
+    PENDIENTE_CONFIRMACION,
+    PENDIENTE_CONTRAOFERTA,
+    EN_PROCESO,
+    COMPLETADO,
+    CANCELADO
+}
+
+}
+package Persistencia {
+abstract class DAO
+class EstudianteDAO
+class IntercambioDAO
+class PublicacionDAO
+}
+package VentanasGUI{
+class GUIPrincipal
+class Inicio
+class Interaccion
+class Ofertas
+class Publicaciones
+}
+EstudianteDAO --|> DAO
+IntercambioDAO --|> "* "DAO
+PublicacionDAO --|> DAO
+@enduml
