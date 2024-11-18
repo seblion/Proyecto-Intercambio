@@ -20,8 +20,11 @@ public class Interaccion {
     private Estudiante estudianteActual;
     private GestorPublicacion gestorPublicacion;
 
-    public Interaccion(GUIPrincipal controlador) {
+    public Interaccion(GUIPrincipal controlador, Estudiante estudianteActual) {
         this.controlador = controlador;
+        this.estudianteActual = estudianteActual;
+        nombre.setText(estudianteActual.getNombre() + " " + estudianteActual.getApellido());
+        usuario.setText(estudianteActual.getUsuario());
 
         realizarPublicacionButton.addActionListener(new ActionListener() {
             @Override
@@ -55,9 +58,8 @@ public class Interaccion {
         return interaccionPanel;
     }
 
-    public void agregarEstudiante(Estudiante estudianteVerificado) {
-        estudianteActual=estudianteVerificado;
-        nombre.setText(estudianteActual.getNombre() + " " + estudianteActual.getApellido());
-        usuario.setText(estudianteActual.getUsuario());
-    }
+//    public void agregarEstudiante(Estudiante estudianteVerificado) {
+//        estudianteActual=estudianteVerificado;
+//
+//    }
 }

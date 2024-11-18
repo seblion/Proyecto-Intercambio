@@ -10,14 +10,16 @@ import java.awt.*;
 
 public class GUIPrincipal extends JFrame {
     final RealizaPublicacion realizaPublicacion;
-    final Publicaciones publicaciones;
-    final Ofertas ofertas;
+    public Publicaciones publicaciones;
+    public Ofertas ofertas;
     private CardLayout cardLayout;
     private  JPanel mainPanel;
     private GestorPublicacion gestorPublicacion;
     private GestorIntercambio gestorIntercambio;
     private GestorEstudiante gestorEstudiante;
     Interaccion interaccion;
+    private Estudiante estudianteActual;
+
     public GUIPrincipal(){
         setTitle("Poli Trueque");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -28,19 +30,14 @@ public class GUIPrincipal extends JFrame {
         gestorIntercambio = new GestorIntercambio();
         Inicio inicio = new Inicio (this);
         Registro registro = new Registro(this);
-        interaccion = new Interaccion(this);
         realizaPublicacion = new RealizaPublicacion(this);
-        publicaciones = new Publicaciones(this);
-        ofertas = new Ofertas(this);
+
 
         mainPanel.add(inicio.getPanel(),"Inicio");
         mainPanel.add(registro.getPanel(),"Registro");
-        mainPanel.add(interaccion.getPanel(),"Interaccion");
         mainPanel.add(realizaPublicacion.getPanel(),"RealizaPublicacion");
-        mainPanel.add(publicaciones.getPanel(),"Publicaciones");
-        mainPanel.add(ofertas.getPanel(),"Ofertas1");
         cardLayout.show(mainPanel,"Inicio");
-        //cardLayout.show(mainPanel,"Interaccion");
+        cardLayout.show(mainPanel,"Interaccion");
         add(mainPanel);
         setLocationRelativeTo(null);
         setVisible(true);
@@ -61,6 +58,14 @@ public class GUIPrincipal extends JFrame {
         this.gestorEstudiante = gestorEstudiante;
     }
 
+    public void inicializarPaneles(Estudiante estudianteVerificado) {
+        estudianteActual=estudianteVerificado;
+        publicaciones = new Publicaciones(this,estudianteVerificado);
+        mainPanel.add(publicaciones.getPanel(),"Publicaciones");
+        ofertas = new Ofertas(this,estudianteVerificado);
+        mainPanel.add(ofertas.getPanel(),"Ofertas1");
+        interaccion = new Interaccion(this,estudianteVerificado);
+        mainPanel.add(interaccion.getPanel(),"Interaccion");
 
-
+    }
 }

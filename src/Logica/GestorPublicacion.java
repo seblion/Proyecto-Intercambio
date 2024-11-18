@@ -48,10 +48,23 @@ public class GestorPublicacion {
         publicaciones.removeIf(pub -> pub.getId() == id);
         System.out.println("Publicación " + id + " eliminada.");
     }
+
+    // Metodo para obtener una publicación por ID
+    public Publicacion obtenerPublicacionPorId(int id) {
+        for (Publicacion pub : publicaciones) {
+            if (pub.getId() == id) {
+                return pub;
+            }
+        }
+        return null; // Retorna null si no se encuentra la publicación
+    }
+
+
     // Metodo para obtener la lista de publicaciones
     public List<Publicacion> getPublicaciones() {
         return publicaciones;
     }
+
     public boolean recopilarPublicaciones() {
         try {
             publicaciones = (List<Publicacion>) this.dao.recuperarPublicaciones();

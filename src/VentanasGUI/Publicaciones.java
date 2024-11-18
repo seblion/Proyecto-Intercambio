@@ -27,8 +27,9 @@ public class Publicaciones {
     private GestorPublicacion gestorPublicacion;
 
 
-    public Publicaciones(GUIPrincipal controlador){
+    public Publicaciones(GUIPrincipal controlador, Estudiante estudianteActual){
         this.controlador = controlador;
+        this.estudianteActual= estudianteActual;
         inicializarTabla();
         configurarEventos();
         cargarPublicaciones();
@@ -57,7 +58,7 @@ public class Publicaciones {
         gestorPublicacion = new GestorPublicacion();
         boolean recuperacion = gestorPublicacion.recopilarPublicaciones();
         for (Publicacion pub:gestorPublicacion.getPublicaciones()){
-            if (!pub.getPropietario().equals(estudianteActual)){
+            if (!pub.getPropietario().getUsuario().equals(estudianteActual.getUsuario())){
                 modeloTabla.addRow(new Object[]{
                         pub.getTitulo(),
                         pub.getPropietario().getNombre() + " " + pub.getPropietario().getApellido(),
@@ -93,6 +94,7 @@ public class Publicaciones {
                 try {
 
                     int Resultado = estudianteActual.iniciarIntercambio(publicacionSeleccionada);
+                    publicacionSeleccionada.setDisponibilidad(0);
                     if(Resultado==-1)
                         throw new RuntimeException();
                     JOptionPane.showMessageDialog(publicacionesPanelPrincipal,

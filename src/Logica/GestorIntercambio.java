@@ -101,4 +101,7 @@ public void rechazarPropuesta(Intercambio intercambio, Estudiante estudiante) {
         return intercambios;
     }
 
+    public void agregarContraOferta(Intercambio intercambioSeleccionado, Publicacion publicacionSeleccionada) {
+//        this.intercambioDAO.guardarContraoferta(interca)
+    }
 }

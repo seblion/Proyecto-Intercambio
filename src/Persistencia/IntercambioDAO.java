@@ -52,11 +52,12 @@ public class IntercambioDAO extends DAO {
                 intercambio.setIdIntercambio(resultado.getString(1).trim());
                 intercambio.setEstado(resultado.getString(2).trim());
                 intercambio.setIdOfertante(resultado.getString(3).trim());
+                try{
                 List<Publicacion> pubs = this.daoPublicacion.recuperarOfertas(intercambio.getIdIntercambio());
                 if (pubs != null)
                     intercambio.setPublicacionOferente(pubs.get(0));
                 intercambios.add(intercambio);
-
+            } catch (Exception e) {}
             }
             return intercambios;
 

@@ -102,6 +102,8 @@ public class Estudiante {
         return gestorPublicacion.agregarPublicacion(titulo, descripcion, tipo, this);
     }
     public int iniciarIntercambio(Publicacion publicacionSeleccionada) {
+        if(!publicacionSeleccionada.estaDisponible())
+            return -1;
         if (this.getUsuario()==publicacionSeleccionada.getPropietario().getUsuario())
             return -1;
         return gestorIntercambio.iniciarIntercambio(this,publicacionSeleccionada);

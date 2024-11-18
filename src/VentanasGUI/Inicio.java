@@ -37,10 +37,8 @@ public class Inicio {
                 String clave = new String(contrasenaPasswordField.getPassword());
                 Estudiante estudianteVerificado = gestorEstudiante.obtenerEstudiante(usuario,clave);
                 if(estudianteVerificado!=null){
-                    controlador.interaccion.agregarEstudiante(estudianteVerificado);
+                    controlador.inicializarPaneles(estudianteVerificado);
                     controlador.realizaPublicacion.agregarEstudiante(estudianteVerificado);
-                    controlador.publicaciones.agregarEstudiante(estudianteVerificado);
-                    controlador.ofertas.agregarEstudiante(estudianteVerificado);
                     controlador.cambiarVentana("Interaccion");
                     //todo: se usa gestorEstudiante como manejador individual y general o solo Estudiante
                    controlador.setGestorEstudiante(gestorEstudiante);
