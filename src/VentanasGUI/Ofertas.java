@@ -17,6 +17,8 @@ public class Ofertas {
     private GestorPublicacion gestorPublicacion;
     private Estudiante estudianteActual;
     private DefaultTableModel modeloTabla;
+    private DefaultTableModel modeloTabla2;
+
     private GestorIntercambio gestorIntercambio;
     private Intercambio intercambioSeleccionado;
 
@@ -51,23 +53,24 @@ public class Ofertas {
     }
 
     private void inicializarTablaContraOfertas() {
-            modeloTabla = new DefaultTableModel(new String[]{"Titulo", "Estudiante", "Tipo"}, 0) {
+            modeloTabla2 = new DefaultTableModel(new String[]{"Titulo", "Estudiante", "Tipo"}, 0) {
                 @Override
                 public boolean isCellEditable(int row, int column) {
                     return false;
                 }
             };
-            tablaOfertas.setModel(modeloTabla);
-            tablaOfertas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-            tablaOfertas.getTableHeader().setReorderingAllowed(false);
+            tablaContraOfertas.setModel(modeloTabla2);
+            tablaContraOfertas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+            tablaContraOfertas.getTableHeader().setReorderingAllowed(false);
         }
 
     private void cargarContraOfertas() {
         String idUsuarioOfertante = intercambioSeleccionado.getIdOfertante();
-        modeloTabla.setRowCount(0);
+        modeloTabla2.setRowCount(0);
+        gestorPublicacion.recopilarPublicaciones();
         for (Publicacion publicacion : gestorPublicacion.getPublicaciones()) {
             if (publicacion.getPropietario().getIdEstudiante().equals(idUsuarioOfertante)) {
-                modeloTabla.addRow(new Object[]{
+                modeloTabla2.addRow(new Object[]{
                         publicacion.getPropietario().getUsuario(),
                         publicacion.getTitulo(),
                         publicacion.getTipo()
