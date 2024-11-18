@@ -165,5 +165,35 @@ public  class PublicacionDAO extends DAO{
         }
             return true;
     }
+
+    public List<Publicacion> recuperarOfertas(String idIntercambio) throws Exception {
+        try {
+
+            String sql = "SELECT NOMBREPUB,DESCRIPCION,TIPO, DISPONIBILIDAD, IDESTUDIANTE, IDPUBLICACION FROM PUBLICACION P " +
+                    "JOIN INTERCAMBIO I ON P.IDINTERCAMBIO=I.IDINTERCAMBIO WHERE I.IDINTERCAMBIO = " + idIntercambio;
+            consultarBase(sql);
+
+            Publicacion publicacion;
+            List<Publicacion> publicaciones = new ArrayList();
+            while (resultado.next()) {
+                publicacion = new Publicacion();
+                publicacion.setTitulo(resultado.getString(1).trim());
+                publicacion.setDescripcion(resultado.getString(2).trim());
+                publicacion.setTipo(resultado.getString(3).trim());
+                publicacion.setDisponibilidad(resultado.getInt(4));
+                int idPropietario = resultado.getInt(5);
+                Estudiante propietario= this.daoEstudiante.devolverEstudiante(idPropietario);
+                publicacion.setPropietario(propietario);
+                publicacion.setId(resultado.getInt(6));
+                publicaciones.add(publicacion);
+            }
+            return publicaciones;
+
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            desconectarBase();
+        }
+    }
 }
 

@@ -38,7 +38,8 @@ public class Interaccion {
         verMisOfertasButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                controlador.cambiarVentana("Oferta");
+                controlador.ofertas.cargarOfertas();
+                controlador.cambiarVentana("Ofertas1");
             }
         });
     }

@@ -1,9 +1,20 @@
 package Persistencia;
 
+import Logica.EstadoIntercambio;
 import Logica.Estudiante;
 import Logica.Intercambio;
+import Logica.Publicacion;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class IntercambioDAO extends DAO {
+    private PublicacionDAO daoPublicacion;
+
+    public IntercambioDAO() {
+        this.daoPublicacion = new PublicacionDAO();
+    }
+
     public int guardar(Intercambio intercambio) throws Exception {
         int idIntercambio = -1;
         try {
@@ -28,6 +39,33 @@ public class IntercambioDAO extends DAO {
         }
         return idIntercambio;
     }
+
+    public List<Intercambio> recuperarOfertas() throws Exception {
+        try {
+            String sql = "SELECT IDINTERCAMBIO, ESTADO, IDINTERESADO FROM INTERCAMBIO ";
+            consultarBase(sql);
+
+            Intercambio intercambio;
+            List<Intercambio> intercambios = new ArrayList();
+            while (resultado.next()) {
+                intercambio = new Intercambio();
+                intercambio.setIdIntercambio(resultado.getString(1).trim());
+                intercambio.setEstado(resultado.getString(2).trim());
+                intercambio.setIdOfertante(resultado.getString(3).trim());
+                List<Publicacion> pubs = this.daoPublicacion.recuperarOfertas(intercambio.getIdIntercambio());
+                if (pubs != null)
+                    intercambio.setPublicacionOferente(pubs.get(0));
+                intercambios.add(intercambio);
+
+            }
+            return intercambios;
+
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            desconectarBase();
+        }
+        }
 
     public void actualizar(Intercambio intercambio) {
     }
