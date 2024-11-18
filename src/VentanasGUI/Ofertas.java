@@ -57,6 +57,7 @@ public class Ofertas {
                 @Override
                 public boolean isCellEditable(int row, int column) {
                     return false;
+
                 }
             };
             tablaContraOfertas.setModel(modeloTabla2);
