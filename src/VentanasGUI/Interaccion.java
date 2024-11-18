@@ -15,6 +15,7 @@ public class Interaccion {
     private JPanel interaccionPanel;
     JLabel nombre;
     private JLabel usuario;
+    private JButton cerrarSesionButton;
     private GUIPrincipal controlador;
     private Estudiante estudianteActual;
     private GestorPublicacion gestorPublicacion;
@@ -40,6 +41,12 @@ public class Interaccion {
             public void actionPerformed(ActionEvent e) {
                 controlador.ofertas.cargarOfertas();
                 controlador.cambiarVentana("Ofertas1");
+            }
+        });
+        cerrarSesionButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controlador.cambiarVentana("Inicio");
             }
         });
     }

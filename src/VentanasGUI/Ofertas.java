@@ -6,6 +6,8 @@ import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Ofertas {
     private JPanel ofertasPanelPrincipal;
@@ -13,6 +15,7 @@ public class Ofertas {
     private JTable tablaContraOfertas;
     private JButton CONTRAOFERTAButton;
     private JButton RECHAZARButton;
+    private JButton volverAlInicioButton;
     private GUIPrincipal controlador;
     private GestorPublicacion gestorPublicacion;
     private Estudiante estudianteActual;
@@ -48,6 +51,12 @@ public class Ofertas {
                         }
                     }
                 }
+            }
+        });
+        volverAlInicioButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controlador.cambiarVentana("Interaccion");
             }
         });
     }

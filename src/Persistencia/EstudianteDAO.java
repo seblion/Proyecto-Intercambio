@@ -96,61 +96,6 @@ public  class EstudianteDAO extends DAO{
             desconectarBase();
         }
     }
-//
-//        public Estudiante devolverEstudiante(String usuario) throws Exception {
-//            try {
-//
-//                Estudiante estudiante = new Estudiante();
-//
-//                //Armado de la sentencia query con el id del estudiante recibido como argumento
-//                String sql = "SELECT nombre FROM fabricante WHERE identificador = " + usurio;
-//
-//                //Ejecuto el método de consulta que devuelve y guarda una tabla en el Objeto ResultSet
-//                consultarBase(sql);
-//
-//            /* Aunque sea un solo String, es necesario seguir ocupando el while con el método next()
-//            para obtener el valor y que no arroje errores. */
-//                Estudiante estudiante = null;
-//                while (resultado.next()) {
-//                    fabricante = resultado.getString(1);
-//                }
-//                return estudiante;
-//
-//            } catch (Exception e) {
-//                throw e;
-//            } finally {
-//                desconectarBase();
-//            }
-//        }
-//
-//        /**
-//         * Listar los correos de los estudiantes
-//         *
-//         * @return ArrayList del tipo Fabricante con sus atributos guardados
-//         * @throws Exception
-//         */
-//        public Collection<Fabricante> listarFabricantes() throws Exception {
-//            try {
-//
-//                String sql = "SELECT * FROM fabricante";
-//                consultarBase(sql);
-//
-//                Fabricante fabricante;
-//                Collection<Fabricante> fabricantes = new ArrayList();
-//                while (resultado.next()) {
-//                    fabricante = new Fabricante();
-//                    fabricante.setCodigo(resultado.getInt(1));
-//                    fabricante.setNombre(resultado.getString(2));
-//                    fabricantes.add(fabricante);
-//                }
-//                return fabricantes;
-//
-//            } catch (Exception e) {
-//                throw e;
-//            } finally {
-//                desconectarBase();
-//            }
-//        }
 
     }
 

@@ -18,15 +18,6 @@ public class Registro {
     private JButton volverButton;
     private GUIPrincipal controlador;
 
-//    public Registro() {
-//        guardarEstudianteButton.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                guardarDatos();
-//            }
-//        });
-//    }
-
     public Registro(GUIPrincipal controlador) {
         this.controlador = controlador;
         guardarEstudianteButton.addActionListener(new ActionListener() {

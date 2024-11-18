@@ -14,13 +14,10 @@ public class GUIPrincipal extends JFrame {
     final Ofertas ofertas;
     private CardLayout cardLayout;
     private  JPanel mainPanel;
-    private Estudiante estudianteActual;
     private GestorPublicacion gestorPublicacion;
     private GestorIntercambio gestorIntercambio;
     private GestorEstudiante gestorEstudiante;
     Interaccion interaccion;
-
-
     public GUIPrincipal(){
         setTitle("Poli Trueque");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -50,17 +47,8 @@ public class GUIPrincipal extends JFrame {
 
 
     }
-    public void setEstudianteActual(Estudiante estudiante){
-        this.estudianteActual=estudiante;
-    }
-    public Estudiante getEstudianteActual(){
-        return estudianteActual;
-    }
     public GestorPublicacion getGestorPublicacion(){
         return gestorPublicacion;
-    }
-    public GestorIntercambio getGestorIntercambio(){
-        return gestorIntercambio;
     }
     public void cambiarVentana(String nombreVentana){
         cardLayout.show(mainPanel,nombreVentana);

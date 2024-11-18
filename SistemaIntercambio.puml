@@ -1,21 +1,76 @@
 @startuml
 'https://plantuml.com/class-diagram
-package Logica{
+
 class GestorEstudiante {
 - dao : EstudianteDAO
 - estudianteActual : Estudiante
++int registrarEstudiante(nombre, apellido, correo, celular, usuario, clave)
 }
 class GestorPublicacion {
-- dao : PublicacionDAO
-- publicaciones :
+        -dao: PublicacionDAO
+        -publicaciones : List<Publicacion>
+        -intercambiosList<Intercambio>
+        +agregarPublicacion(titulo, descripcion, tipo, estudiante)
+        +editarPublicacion(id, nuevoTitulo, nuevaDescripcion, nuevoTipo)
+        +eliminarPublicacion(id)
+        +getPublicaciones()
+        +recopilarPublicaciones()
 }
 class Estudiante {
+- dao : EstudianteDAO
+- gestorPublicacion :GestorPublicacion
+- id Estudiante : String
+- nombre: String
+- gestorIntercambio:GestorIntercambio
+        +existe(correo)
+        +claveCorrecta(claveIngresada)
+        +getDatosIdentidad()
+        +crearPublicacion(titulo, descripcion, tipo)
+        +iniciarIntercambio(publicacionSeleccionada)
 }
 class Intercambio {
+        -idIntercambio :String
+        -idInteresado: String
+        -estado: String
+        -aceptacionOferente: boolean
+        -aceptacionReceptor : oolean
+        +establecerPublicacionReceptor(Publicacion publicacionReceptor)
+        +aceptarIntercambio(Estudiante estudiante)
+        +cambiarEstado(String nuevoEstado)
+        +rechazarIntercambio(Estudiante estudiante)
+        +obtenerParticipantes()
+        +terminarIntercambio()
+        +getters()
+        +setters()
+        +registroInicial() String
+
 }
 class Publicacion {
+-id:int
+        -titulo:String
+        -descripcion:String
+        -tipo:String
+        -int disponible
+        -proceso:boolean
+        +registro()
+        +estaDisponible()
+        +marcarEnProceso()
+        +perteneceA(String usuario)
+        +setDisponibilidad(int disponibilidad)
+        +setPropietario(Estudiante propietario)
 }
 class GestorIntercambio {
+        -IntercambioDAO : intercambioDAO
+        -PublicacionDAO : publicacionDAO
+        -List<Intercambio>intercambios
+        +int iniciarIntercambio(estudianteOferente, publicacionOferente)
+        +proponerContraoferta(intercambio, publicacionReceptor)
+        +aceptarPropuesta(intercambio, estudiante)
+        +rechazarPropuesta(intercambio, estudiante)
+        -validarCondicionesIniciales(estudianteOferente, publicacion)
+        -esParticipante(estudiante, intercambio)
+        -actualizarEstadoPublicaciones(intercambio)
+        +recopilarOfertas()
 }
 enum EstadoIntercambio {
     PENDIENTE_CONFIRMACION,
@@ -25,21 +80,102 @@ enum EstadoIntercambio {
     CANCELADO
 }
 
+
+
+abstract class DAO{
+#conexion:Connection
+        #sentencia:Statement
+        #resultado:esultSet
+        -URL:String
+        -DRIVER:String
+        -USER:String
+        -PASSWORD : String
+        +conectarBase()
+        #desconectarBase()
+        #insertarModificarEliminar(String sql)
+        #consultarBase(String sql)
+        }
+class EstudianteDAO{
+        +guardarPublicacion(String publicacion)
+        +recuperarPublicaciones()
+        +vincularIntercambio(int idIntercambio, int idPub)
+        +hayDisponibilidad(int id)
+        +recuperarOfertas(String idIntercambio)
+        }
+class IntercambioDAO{
+        -daoPublicaciond : PublicacionDAO
+        +IntercambioDAO()
+        +guardar(Intercambio intercambio)
+        +recuperarOfertas()
+        +actualizar(Intercambio intercambio)
 }
-package Persistencia {
-abstract class DAO
-class EstudianteDAO
-class IntercambioDAO
-class PublicacionDAO
+class PublicacionDAO{
+        -EstudianteDAO daoEstudiante
+        +PublicacionDAO()
+        +guardarPublicacion(String publicacion)
+        +recuperarPublicaciones()
+        +vincularIntercambio(int idIntercambio, int idPub)
+        +hayDisponibilidad(int id)
+        +recuperarOfertas(String idIntercambio)
 }
-package VentanasGUI{
-class GUIPrincipal
-class Inicio
-class Interaccion
-class Ofertas
-class Publicaciones
-}
-EstudianteDAO --|> DAO
-IntercambioDAO --|> "* "DAO
-PublicacionDAO --|> DAO
+
+
+class GUIPrincipal extends JFrame{
+        -estudianteActual : Estudiante
+        -gestorPublicacion  : GestorPublicacion
+        -gestorIntercambio:GestorIntercambio
+        -gestorEstudiante:GestorEstudiante
+        +realizaPublicacion:RealizaPublicacion
+        +publicaciones:Publicaciones
+        +Ofertas ofertas
+        +Interaccion interaccion
+        +setEstudianteActual(Estudiante estudiante)
+        +getEstudianteActual() Estudiante
+        +getGestorPublicacion() GestorPublicacion
+        +getGestorIntercambio()
+        +cambiarVentana(String nombreVentana)
+        +setGestorEstudiante(GestorEstudiante gestorEstudiante)
+        }
+
+class Inicio{}
+class Interaccion{}
+class Ofertas{}
+class Publicaciones{}
+class RealizaPublicacion{}
+
+
+ Intercambio "1" --> "1" Estudiante : estudianteOferenteReceptor
+    Intercambio "1" --> "1" Publicacion : publicacionOferenteReceptor
+    Publicacion "1" --> "1" Estudiante : propietario
+    EstudianteDAO --|> DAO
+    IntercambioDAO --|> DAO
+    PublicacionDAO --|> DAO
+    IntercambioDAO "1" --> "1" PublicacionDAO : daoPublicacion
+    PublicacionDAO "1" --> "1" EstudianteDAO : daoEstudiante
+    Estudiante "1" --> "1" GestorPublicacion
+    Estudiante "1" --> "1" GestorIntercambio
+    GestorEstudiante "1" --> "1" EstudianteDAO
+    GestorPublicacion "1" --> "1" PublicacionDAO
+    GestorIntercambio "1" --> "1" IntercambioDAO
+    GestorIntercambio "1" --> "1" PublicacionDAO
+    Estudiante "1" --> "1" EstudianteDAO
+        GUIPrincipal *-- RealizaPublicacion
+        GUIPrincipal *-- Publicaciones
+        GUIPrincipal *-- Ofertas
+        GUIPrincipal *-- Inicio
+        GUIPrincipal *-- Interaccion
+        Inicio o-- Estudiante
+        GUIPrincipal o-- GestorPublicacion
+        Inicio o-- GestorEstudiante
+            Ofertas -- GestorPublicacion
+            Ofertas -- GestorIntercambio
+            Ofertas -- Intercambio
+            GestorIntercambio *-- Intercambio
+            GestorPublicacion *-- Publicacion
+   EstadoIntercambio -- Intercambio
+   Iteraccion -- GestorIntercambio
+            Publicaciones -- GestorPublicacion
+            RealizaPublicacion -- GestorPublicacion
+
+
 @enduml

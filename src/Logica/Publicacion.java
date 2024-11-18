@@ -100,27 +100,3 @@ public class Publicacion {
         this.propietario = propietario;
     }
 }
-
-/*
-public class Main {
-    public static void main(String[] args) {
-        GestorPublicacion gestor = new GestorPublicacion();
-
-        // Agregar publicaciones
-        gestor.agregarPublicacion("Producto 1", "Descripción del producto 1", "ruta/imagen1.png", "Producto");
-        gestor.agregarPublicacion("Servicio 1", "Descripción del servicio 1", null, "Servicio");
-
-        // Listar publicaciones
-        gestor.listarPublicaciones();
-
-        // Editar una publicación
-        gestor.editarPublicacion(1, "Producto 1 Actualizado", "Descripción actualizada", "ruta/nueva_imagen.png", "Producto");
-
-        // Eliminar una publicación
-        gestor.eliminarPublicacion(2);
-
-        // Listar publicaciones nuevamente
-        gestor.listarPublicaciones();
-    }
-}
-*/

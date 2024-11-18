@@ -11,8 +11,8 @@ public  abstract class DAO {
     protected Statement sentencia = null;
     protected ResultSet resultado = null;
 
-
     private final String URL = "jdbc:sqlserver://localhost:1433;database=BDINTERCAMBIOS; encrypt = false;";
+    //private final String URL = "jdbc:sqlserver://localhost:1433;database=BDINTERCAMBIOS; encrypt = false;";
     private final String DRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
     private final String USER = "AdmIntercambio";
     private final String PASSWORD = "12345";
@@ -86,20 +86,3 @@ public  abstract class DAO {
     }
 
 }
-
-//    /**
-//     * Método estático para obtener una conexión a la base de datos Intercambios.
-//     * @return objeto Connection si la conexión es exitosa, null en caso de error.
-//     */
-//    public static Connection getConnection() {
-//
-//        String conexionUrl = "jdbc:sqlserver://localhost:1433;database=BDINTERCAMBIOS;user=AdmIntercambio;password=12345;loginTimeout=30;encrypt = false;";
-//
-//        try {
-//            return DriverManager.getConnection(conexionUrl);
-//        } catch (SQLException e) {
-//            System.out.println(e.toString());
-//            return null;
-//        }
-//    }
-//}

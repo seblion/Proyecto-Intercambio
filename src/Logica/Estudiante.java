@@ -54,7 +54,6 @@ public class Estudiante {
         this.dao = new EstudianteDAO();
         this.gestorPublicacion = new GestorPublicacion();
         this.gestorIntercambio = new GestorIntercambio();
-
     }
 
     public Estudiante() {
@@ -62,10 +61,6 @@ public class Estudiante {
         this.gestorPublicacion = new GestorPublicacion();
         this.gestorIntercambio = new GestorIntercambio();
 
-    }
-
-    public static boolean existe(String correo) {
-        return false;
     }
 
     @Override
@@ -76,7 +71,6 @@ public class Estudiante {
                 "','" +usuario + "','" +  clave ;
 
     }
-
     public String registro() {
         return nombre +
                 "','" + apellido + "','" + correo + "','" +celular +
@@ -100,12 +94,6 @@ public class Estudiante {
     public boolean claveCorrecta(String claveIngresada) {
         return this.clave.equals(claveIngresada);
     }
-
-    public String getDatosIdentidad() {
-        return "Nombre: " + nombre + " " + apellido +
-                "'\n Usuario: " +usuario;
-    }
-
     public String getUsuario() {
         return usuario;
     }
@@ -113,11 +101,6 @@ public class Estudiante {
     public int crearPublicacion(String titulo, String descripcion, String tipo) {
         return gestorPublicacion.agregarPublicacion(titulo, descripcion, tipo, this);
     }
-
-    public GestorPublicacion getGestorPublicacion() {
-        return gestorPublicacion;
-    }
-
     public int iniciarIntercambio(Publicacion publicacionSeleccionada) {
         if (this.getUsuario()==publicacionSeleccionada.getPropietario().getUsuario())
             return -1;

@@ -19,6 +19,7 @@ public class Publicaciones {
     private JLabel publicacionesTitutloLabel;
     private JPanel publicacionesListadoPanel;
     private JPanel publicacionesPanelPrincipal;
+    private JButton volverInicioButton;
     private GUIPrincipal controlador;
     private DefaultTableModel modeloTabla;
     private Publicacion publicacionSeleccionada;
@@ -50,22 +51,6 @@ public class Publicaciones {
             }
         });
     }
-
-//    private void cargarPublicaciones() {
-//        modeloTabla.setRowCount(0);
-//        GestorPublicacion gestorPublicacion = new GestorPublicacion();
-//        boolean recuperacion = gestorPublicacion.recopilarPublicaciones();
-//        for (Publicacion pub:gestorPublicacion.getPublicaciones()){
-//            if (!pub.getPropietario().equals(estudianteActual)){
-//                modeloTabla.addRow(new Object[]{
-//                        pub.getTitulo(),
-//                        pub.getPropietario().getNombre(),
-//                        pub.getTipo()
-//                });
-//            }
-//        }
-//
-//    }
 
     private void cargarPublicaciones() {
         modeloTabla.setRowCount(0);
@@ -122,6 +107,12 @@ public class Publicaciones {
                 }
 
             }
+        }
+    });
+    volverInicioButton.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            controlador.cambiarVentana("Interaccion");
         }
     });
     }

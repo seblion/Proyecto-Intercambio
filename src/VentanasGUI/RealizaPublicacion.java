@@ -15,7 +15,6 @@ public class RealizaPublicacion {
     private JPanel realizaPublicacionPanel;
     private JLabel tituloLabel;
     private GUIPrincipal controlador;
-    private GestorPublicacion gestorPublicacion;
     private Estudiante estudianteActual;
     public RealizaPublicacion (GUIPrincipal controlador){
         this.controlador = controlador;
@@ -48,22 +47,4 @@ public class RealizaPublicacion {
     public JPanel getPanel(){
         return realizaPublicacionPanel;
     }
-//    JButton btnGuardar = new JButton("Guardar");
-//        btnGuardar.addActionListener(new ActionListener() {
-//        @Override
-//        public void actionPerformed(ActionEvent e) {
-//            String titulo = txtTitulo.getText();
-//            String descripcion = txtDescripcion.getText();
-//            String tipo = txtTipo.getText();
-//            String imagen = txtImagen.getText().isEmpty() ? null : txtImagen.getText();
-//
-//            if (publicacion == null) {
-//                gestor.agregarPublicacion(titulo, descripcion, imagen, tipo);
-//            } else {
-//                gestor.editarPublicacion(publicacion.getId(), titulo, descripcion, imagen, tipo);
-//            }
-//            actualizarTabla();
-//            formulario.dispose();
-//        }
-//    });
 }
