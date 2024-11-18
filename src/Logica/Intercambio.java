@@ -5,11 +5,29 @@ import java.util.List;
 
 public class Intercambio {
     private String idIntercambio;
+    private String idInteresado;
     private Estudiante estudianteOferente;
     private Estudiante estudianteReceptor;
     private Publicacion publicacionOferente;
     private Publicacion publicacionReceptor;
-    private EstadoIntercambio estado;
+
+    public void setIdIntercambio(String idIntercambio) {
+        this.idIntercambio = idIntercambio;
+    }
+
+    public void setEstudianteOferente(Estudiante estudianteOferente) {
+        this.estudianteOferente = estudianteOferente;
+    }
+
+    public void setPublicacionOferente(Publicacion publicacionOferente) {
+        this.publicacionOferente = publicacionOferente;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    private String estado;
     private boolean aceptacionOferente;
     private boolean aceptacionReceptor;
     public Intercambio(Estudiante estudianteOferente, Publicacion publicacion){
@@ -17,13 +35,18 @@ public class Intercambio {
         this.estudianteOferente = estudianteOferente;
         this.estudianteReceptor = publicacion.getPropietario();
         this.publicacionOferente = publicacion;
-        this.estado = EstadoIntercambio.PENDIENTE_CONFIRMACION;
+        this.estado = String.valueOf(EstadoIntercambio.valueOf("PENDIENTE_CONFIRMACION"));
         this.aceptacionOferente = true;  // El oferente acepta por defecto su propia oferta
         this.aceptacionReceptor = false;
     }
+
+    public Intercambio() {
+
+    }
+
     public void establecerPublicacionReceptor(Publicacion publicacionReceptor) {
         this.publicacionReceptor = publicacionReceptor;
-        this.estado = EstadoIntercambio.PENDIENTE_CONTRAOFERTA;
+        this.estado = "PENDIENTE";
     }
     public void aceptarIntercambio(Estudiante estudiante) {
         if (estudiante.equals(estudianteOferente)) {
@@ -33,14 +56,14 @@ public class Intercambio {
         }
 
         if (aceptacionOferente && aceptacionReceptor) {
-            this.estado = EstadoIntercambio.EN_PROCESO;
+            this.estado = "EN_PROCESO";
         }
     }
-    public void cambiarEstado(EstadoIntercambio nuevoEstado){
+    public void cambiarEstado(String nuevoEstado){
         this.estado = nuevoEstado;
     }
     public void rechazarIntercambio(Estudiante estudiante) {
-        this.estado = EstadoIntercambio.CANCELADO;
+        this.estado = "CANCELADO";
         if (estudiante.equals(estudianteOferente)) {
             this.aceptacionOferente = false;
         } else if (estudiante.equals(estudianteReceptor)) {
@@ -54,8 +77,8 @@ public class Intercambio {
         return participantes;
     }
     public void terminarIntercambio(){
-        if (this.estado == EstadoIntercambio.EN_PROCESO) {
-            this.estado = EstadoIntercambio.COMPLETADO;
+        if (this.estado == "EN_PROCESO") {
+            this.estado = "COMPLETADO";
         } else {
             throw new IllegalStateException("El intercambio no está en proceso");
         }
@@ -64,7 +87,7 @@ public class Intercambio {
     public Publicacion getPublicacionReceptor() {
         return publicacionReceptor;
     }
-    public EstadoIntercambio getEstado() {
+    public String getEstado() {
         return estado;
     }
     public Publicacion getPublicacionOferente() {
@@ -79,5 +102,17 @@ public class Intercambio {
 
     public String registroInicial() {
         return String.valueOf(estado) + "','"+ estudianteOferente.getIdEstudiante();
+    }
+
+    public String getIdIntercambio() {
+        return idIntercambio;
+    }
+
+    public void setIdOfertante(String trim) {
+        idInteresado = trim;
+    }
+
+    public String getIdOfertante() {
+        return idInteresado;
     }
 }

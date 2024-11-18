@@ -1,5 +1,6 @@
 package Logica;
 
+import Persistencia.IntercambioDAO;
 import Persistencia.PublicacionDAO;
 
 import java.util.ArrayList;
@@ -8,10 +9,13 @@ import java.util.List;
 public class GestorPublicacion {
     private final PublicacionDAO dao;
     private List<Publicacion> publicaciones;
+    private List<Intercambio> intercambios;
 
     public GestorPublicacion() {
         this.dao= new PublicacionDAO();
         publicaciones = new ArrayList<>();
+        intercambios = new ArrayList<>();
+
     }
 
     // Metodo para agregar una publicación
@@ -81,4 +85,6 @@ public class GestorPublicacion {
         }
         return true;
     }
+
+
 }

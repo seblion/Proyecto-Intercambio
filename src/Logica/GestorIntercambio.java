@@ -3,13 +3,18 @@ package Logica;
 import Persistencia.IntercambioDAO;
 import Persistencia.PublicacionDAO;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class GestorIntercambio {
     private IntercambioDAO intercambioDAO;
     private PublicacionDAO publicacionDAO;
+    private List<Intercambio> intercambios;
 
     public GestorIntercambio() {
         intercambioDAO = new IntercambioDAO();
         publicacionDAO = new PublicacionDAO();
+        intercambios = new ArrayList<>();
     }
 
     public int iniciarIntercambio(Estudiante estudianteOferente, Publicacion publicacionOferente) {
@@ -54,7 +59,7 @@ public class GestorIntercambio {
     intercambioDAO.actualizar(intercambio);
 
     // Si ambos aceptaron, actualizar el estado de las publicaciones
-    if (intercambio.getEstado() == EstadoIntercambio.EN_PROCESO) {
+    if (intercambio.getEstado() == "EN_PROCESO") {
         actualizarEstadoPublicaciones(intercambio);
     }
 }
@@ -79,4 +84,21 @@ public void rechazarPropuesta(Intercambio intercambio, Estudiante estudiante) {
         intercambio.getPublicacionOferente().marcarEnProceso();
         intercambio.getPublicacionReceptor().marcarEnProceso();
     }
+
+    public boolean recopilarOfertas() {
+        try {
+            intercambios = this.intercambioDAO.recuperarOfertas();
+            for(Intercambio intercambio:intercambios){
+                intercambio.setEstudianteOferente(intercambio.getPublicacionOferente().getPropietario());
+            }
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
+
+    public List<Intercambio> getIntercambios() {
+        return intercambios;
+    }
+
 }
