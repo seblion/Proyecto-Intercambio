@@ -1,7 +1,5 @@
 package Persistencia;
 
-import Logica.EstadoIntercambio;
-import Logica.Estudiante;
 import Logica.Intercambio;
 import Logica.Publicacion;
 
@@ -51,12 +49,15 @@ public class IntercambioDAO extends DAO {
                 intercambio = new Intercambio();
                 intercambio.setIdIntercambio(resultado.getString(1).trim());
                 intercambio.setEstado(resultado.getString(2).trim());
-                intercambio.setIdOfertante(resultado.getString(3).trim());
+                intercambio.setIdInteresado(resultado.getString(3).trim());
                 try{
                 List<Publicacion> pubs = this.daoPublicacion.recuperarOfertas(intercambio.getIdIntercambio());
-                if (pubs != null)
+                if (pubs != null) {
                     intercambio.setPublicacionOferente(pubs.get(0));
-                intercambios.add(intercambio);
+                    if (pubs.size() == 2)
+                        intercambio.setPublicacionReceptor(pubs.get(1));
+                }
+                    intercambios.add(intercambio);
             } catch (Exception e) {}
             }
             return intercambios;
@@ -72,5 +73,17 @@ public class IntercambioDAO extends DAO {
     }
 
 
-    //no le se, sebas hagale jajjaja
+    public void modificarEstado(String idIntercambio, String estado) throws Exception {
+        try {
+            //Armado de la sentencia nativa query con el String pasado como parámetro
+            String sql = "UPDATE INTERCAMBIO SET ESTADO = '" + estado + "' where IDINTERCAMBIO = " + idIntercambio;
+            //Ejecuto el método para actualizar la base de datos que no devuelve ningún resultado
+            insertarModificarEliminar(sql);
+
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            desconectarBase();
+        }
+    }
 }

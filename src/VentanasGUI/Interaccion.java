@@ -11,7 +11,7 @@ public class Interaccion {
     private JButton verPublicacionesButton;
     private JButton verMisOfertasButton;
     private JButton realizarPublicacionButton;
-    private JButton ESTADODEMISINTERCAMBIOSButton;
+    private JButton verMisIntercambiosButton;
     private JPanel interaccionPanel;
     JLabel nombre;
     private JLabel usuario;
@@ -50,6 +50,13 @@ public class Interaccion {
             @Override
             public void actionPerformed(ActionEvent e) {
                 controlador.cambiarVentana("Inicio");
+            }
+        });
+        verMisIntercambiosButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controlador.misIntercambios.cargarIntercambios();
+                controlador.cambiarVentana("MisIntercambios");
             }
         });
     }

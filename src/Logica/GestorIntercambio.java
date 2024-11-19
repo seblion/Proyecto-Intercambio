@@ -90,6 +90,8 @@ public void rechazarPropuesta(Intercambio intercambio, Estudiante estudiante) {
             intercambios = this.intercambioDAO.recuperarOfertas();
             for(Intercambio intercambio:intercambios){
                 intercambio.setEstudianteOferente(intercambio.getPublicacionOferente().getPropietario());
+                intercambio.setEstudianteOferente(intercambio.getPublicacionOferente().getPropietario());
+                intercambio.setEstudianteReceptor(intercambio.getPublicacionReceptor().getPropietario());
             }
         } catch (Exception e) {
             return false;
@@ -101,7 +103,38 @@ public void rechazarPropuesta(Intercambio intercambio, Estudiante estudiante) {
         return intercambios;
     }
 
-    public void agregarContraOferta(Intercambio intercambioSeleccionado, Publicacion publicacionSeleccionada) {
-//        this.intercambioDAO.guardarContraoferta(interca)
+    public int agregarContraOferta(Intercambio intercambio, Publicacion contraoferta)  {
+        try {
+
+            this.publicacionDAO.vincularIntercambio(Integer.parseInt(intercambio.getIdIntercambio()),contraoferta.getId());
+            contraoferta.setDisponibilidad(0);
+            //todo: modificar estado intercambio a PENDIENTE_CONF
+            intercambio.setEstado("PENDIENTE_CONF");
+            this.intercambioDAO.modificarEstado(intercambio.getIdIntercambio(), "PENDIENTE_CONF");
+            return 1;
+        } catch (Exception e) {
+            return -1;
+        }
+    }
+
+    public List<Intercambio> getIntercambiosCompletos() {
+        List<Intercambio> intercambiosCompletos = new ArrayList<>();
+        for (Intercambio intercambio: intercambios){
+            if(intercambio.getPublicacionReceptor()!=null){
+                intercambiosCompletos.add(intercambio);
+            }
+        }
+        return intercambiosCompletos;
+    }
+
+    public int finalizarIntercambio(Intercambio intercambioSeleccionado) {
+
+        try {
+            this.intercambioDAO.modificarEstado(intercambioSeleccionado.getIdIntercambio(), "FINALIZADO");
+            intercambioSeleccionado.setEstado("FINALIZADO");
+            return 1;
+        } catch (Exception e) {
+            return -1;
+        }
     }
 }

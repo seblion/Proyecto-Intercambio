@@ -19,11 +19,12 @@ public class GUIPrincipal extends JFrame {
     private GestorEstudiante gestorEstudiante;
     Interaccion interaccion;
     private Estudiante estudianteActual;
+    public MisIntercambios misIntercambios;
 
     public GUIPrincipal(){
         setTitle("Poli Trueque");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(600,400);
+        setSize(800,500);
         cardLayout = new CardLayout();
         mainPanel = new JPanel(cardLayout);
         gestorPublicacion = new GestorPublicacion();
@@ -66,6 +67,7 @@ public class GUIPrincipal extends JFrame {
         mainPanel.add(ofertas.getPanel(),"Ofertas1");
         interaccion = new Interaccion(this,estudianteVerificado);
         mainPanel.add(interaccion.getPanel(),"Interaccion");
-
+        misIntercambios = new MisIntercambios(this,estudianteVerificado);
+        mainPanel.add(misIntercambios.getPanel(),"MisIntercambios");
     }
 }

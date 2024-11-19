@@ -32,11 +32,10 @@ public class Ofertas {
         this.controlador = controlador;
         this.intercambioSeleccionado = new Intercambio();
         this.gestorPublicacion = new GestorPublicacion();
+        this.gestorIntercambio = new GestorIntercambio();
         inicializarTablaOfertas();
         inicializarTablaContraOfertas();
-
-//        configurarEventos();
-        this.gestorIntercambio = new GestorIntercambio();
+        CONTRAOFERTAButton.setEnabled(false);
         tablaOfertas.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
@@ -62,44 +61,78 @@ public class Ofertas {
             }
         });
 
-        // Listener para tablaContraOfertas
-        tablaContraOfertas.getSelectionModel().addListSelectionListener(e -> {
-            if (!e.getValueIsAdjusting()) {
-                int selectedRow = tablaContraOfertas.getSelectedRow();
-                if (selectedRow >= 0) {
-                    // Habilitar el botón
-                    CONTRAOFERTAButton.setEnabled(true);
+        tablaContraOfertas.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if (!e.getValueIsAdjusting()) {
+                    CONTRAOFERTAButton.setEnabled(false); // Inicialmente deshabilitar el botón
 
-                    // Obtener información de la publicación seleccionada
-                    String titulo = (String) tablaContraOfertas.getValueAt(selectedRow, 0);
-                    String usuario = (String) tablaContraOfertas.getValueAt(selectedRow, 1);
+                    int selectedRow = tablaContraOfertas.getSelectedRow();
+                    if (selectedRow >= 0) {
+                        // Obtener información de la publicación seleccionada
+                        String usuario = (String) tablaContraOfertas.getValueAt(selectedRow, 0);
+                        String titulo = (String) tablaContraOfertas.getValueAt(selectedRow, 1);
 
-                    // Buscar la publicación y asignarla al intercambio
-                    for (Publicacion publicacion : gestorPublicacion.getPublicaciones()) {
-                        if (publicacion.getTitulo().equals(titulo) &&
-                                publicacion.getPropietario().getUsuario().equals(usuario)) {
-                            publicacionSeleccionada = publicacion;
-                            break;
+                        // Buscar la publicación en la lista de publicaciones
+                        for (Publicacion publicacion : gestorPublicacion.getPublicaciones()) {
+                            if (publicacion.getTitulo().equals(titulo) &&
+                                    publicacion.getPropietario().getUsuario().equals(usuario)) {
+                                // Asignar la publicación seleccionada
+                                publicacionSeleccionada = publicacion;
+                                CONTRAOFERTAButton.setEnabled(true); // Habilitar el botón
+                                break;
+                            }
                         }
                     }
-                } else {
-                    CONTRAOFERTAButton.setEnabled(false); // Deshabilitar si no hay selección
                 }
             }
         });
+
+//        // Listener para tablaContraOfertas
+//        tablaContraOfertas.getSelectionModel().addListSelectionListener(e -> {
+//            CONTRAOFERTAButton.setEnabled(false);
+//            if (!e.getValueIsAdjusting()) {
+//                int selectedRow = tablaContraOfertas.getSelectedRow();
+//                if (selectedRow >= 0) {
+//                    // Habilitar el botón
+//                    CONTRAOFERTAButton.setEnabled(true);
+//
+//                    // Obtener información de la publicación seleccionada
+//                    String titulo = (String) tablaContraOfertas.getValueAt(selectedRow, 0);
+//                    String usuario = (String) tablaContraOfertas.getValueAt(selectedRow, 1);
+//
+//                    // Buscar la publicación y asignarla al intercambio
+//                    for (Publicacion publicacion : gestorPublicacion.getPublicaciones()) {
+//                        if (publicacion.getTitulo().equals(titulo) &&
+//                                publicacion.getPropietario().getUsuario().equals(usuario)) {
+//                            publicacionSeleccionada = publicacion;
+//                            CONTRAOFERTAButton.setEnabled(true);
+//                            break;
+//                        }
+//                    }
+//                } else {
+//                    CONTRAOFERTAButton.setEnabled(false); // Deshabilitar si no hay selección
+//                }
+//            }
+//        });
 
         // Configurar evento para el botón CONTRAOFERTA
         CONTRAOFERTAButton.addActionListener(e -> {
             if (publicacionSeleccionada != null) {
                 try {
+                    //todo: vincular la contraoferta al intercambio
+                    if(!publicacionSeleccionada.estaDisponible()){
+                        throw new RuntimeException();
+                    }
                     // Simula un proceso para finalizar el intercambio
-                    gestorIntercambio.agregarContraOferta(intercambioSeleccionado,publicacionSeleccionada);
+                    int resultado = gestorIntercambio.agregarContraOferta(intercambioSeleccionado,publicacionSeleccionada);
+                    if (resultado == 1){
                     JOptionPane.showMessageDialog(
                             ofertasPanelPrincipal,
                             "La contraoferta se ha registrado exitosamente.",
                             "Éxito",
                             JOptionPane.INFORMATION_MESSAGE
-                    );
+                    );}
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(
                             ofertasPanelPrincipal,
@@ -137,7 +170,7 @@ public class Ofertas {
         modeloTabla2.setRowCount(0);
         gestorPublicacion.recopilarPublicaciones();
         for (Publicacion publicacion : gestorPublicacion.getPublicaciones()) {
-            if (publicacion.getPropietario().getIdEstudiante().equals(idUsuarioOfertante)) {
+            if (publicacion.getPropietario().getIdEstudiante().equals(idUsuarioOfertante) && publicacion.estaDisponible()) {
                 modeloTabla2.addRow(new Object[]{
                         publicacion.getPropietario().getUsuario(),
                         publicacion.getTitulo(),
@@ -156,10 +189,10 @@ public class Ofertas {
                 if(!intercambio.getPublicacionOferente().estaDisponible()){
                 modeloTabla.addRow(new Object[]{
                         intercambio.getPublicacionOferente().getTitulo(),
-                        intercambio.getEstudianteOferente().getUsuario(),
+//                        intercambio.getEstudianteOferente().getUsuario(),
+                        intercambio.getPublicacionOferente().getPropietario().getUsuario(),
                         intercambio.getPublicacionOferente().getTipo()
                 });}
-//            }
             }
         }
 //    private void configurarEventos() {
@@ -219,7 +252,6 @@ public class Ofertas {
 //        texto.setEditable(false);
 //        texto.setWrapStyleWord(true);
 //        texto.setLineWrap(true);
-//        hacerOfertaButton.setEnabled(false);
     }
 
     public JPanel getPanel() {

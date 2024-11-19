@@ -3,7 +3,7 @@ package Logica;
 import Persistencia.EstudianteDAO;
 
 public class Estudiante {
-    private static Persistencia.EstudianteDAO dao;
+//    private static Persistencia.EstudianteDAO dao;
     private GestorPublicacion gestorPublicacion;
     private String idEstudiante;
     private String nombre;
@@ -51,13 +51,13 @@ public class Estudiante {
         this.correo = correo;
         this.usuario = usuario;
         this.clave = clave;
-        this.dao = new EstudianteDAO();
+//        this.dao = new EstudianteDAO();
         this.gestorPublicacion = new GestorPublicacion();
         this.gestorIntercambio = new GestorIntercambio();
     }
 
     public Estudiante() {
-        this.dao = new EstudianteDAO();
+//        this.dao = new EstudianteDAO();
         this.gestorPublicacion = new GestorPublicacion();
         this.gestorIntercambio = new GestorIntercambio();
 
@@ -87,6 +87,10 @@ public class Estudiante {
         return nombre;
     }
 
+    public String getNombreCompleto() {
+        return nombre + " " + apellido;
+    }
+
     public String getApellido() {
         return apellido;
     }
@@ -107,5 +111,9 @@ public class Estudiante {
         if (this.getUsuario()==publicacionSeleccionada.getPropietario().getUsuario())
             return -1;
         return gestorIntercambio.iniciarIntercambio(this,publicacionSeleccionada);
+    }
+
+    public String getCelular() {
+        return celular;
     }
 }

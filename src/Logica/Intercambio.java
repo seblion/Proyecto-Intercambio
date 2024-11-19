@@ -5,11 +5,37 @@ import java.util.List;
 
 public class Intercambio {
     private String idIntercambio;
+
     private String idInteresado;
     private Estudiante estudianteOferente;
     private Estudiante estudianteReceptor;
     private Publicacion publicacionOferente;
+
     private Publicacion publicacionReceptor;
+
+    private String estado;
+    private boolean aceptacionOferente;
+    private boolean aceptacionReceptor;
+    public Intercambio(Estudiante estudianteOferente, Publicacion publicacion){
+        this.idIntercambio = null;
+        this.estudianteOferente = estudianteOferente;
+        this.estudianteReceptor = publicacion.getPropietario();
+        this.publicacionOferente = publicacion;
+
+        //TODO: REVISAR CAMBIOS
+        this.estado = "EN_PROCESO";
+        this.aceptacionOferente = true;  // El oferente acepta por defecto su propia oferta
+        this.aceptacionReceptor = false;
+    }
+
+    public Intercambio() {
+
+    }
+
+
+    public String getIdInteresado() {
+        return idInteresado;
+    }
 
     public void setIdIntercambio(String idIntercambio) {
         this.idIntercambio = idIntercambio;
@@ -23,26 +49,14 @@ public class Intercambio {
         this.publicacionOferente = publicacionOferente;
     }
 
+    public void setPublicacionReceptor(Publicacion publicacionReceptor) {
+        this.publicacionReceptor = publicacionReceptor;
+    }
     public void setEstado(String estado) {
         this.estado = estado;
     }
 
-    private String estado;
-    private boolean aceptacionOferente;
-    private boolean aceptacionReceptor;
-    public Intercambio(Estudiante estudianteOferente, Publicacion publicacion){
-        this.idIntercambio = null;
-        this.estudianteOferente = estudianteOferente;
-        this.estudianteReceptor = publicacion.getPropietario();
-        this.publicacionOferente = publicacion;
-        this.estado = String.valueOf(EstadoIntercambio.valueOf("PENDIENTE_CONFIRMACION"));
-        this.aceptacionOferente = true;  // El oferente acepta por defecto su propia oferta
-        this.aceptacionReceptor = false;
-    }
 
-    public Intercambio() {
-
-    }
 
     public void establecerPublicacionReceptor(Publicacion publicacionReceptor) {
         this.publicacionReceptor = publicacionReceptor;
@@ -108,11 +122,15 @@ public class Intercambio {
         return idIntercambio;
     }
 
-    public void setIdOfertante(String trim) {
+    public void setIdInteresado(String trim) {
         idInteresado = trim;
     }
 
     public String getIdOfertante() {
         return idInteresado;
+    }
+
+    public void setEstudianteReceptor(Estudiante propietario) {
+        estudianteReceptor=propietario;
     }
 }
