@@ -15,7 +15,6 @@ public class Ofertas {
     private JTable tablaOfertas;
     private JTable tablaContraOfertas;
     private JButton CONTRAOFERTAButton;
-    private JButton RECHAZARButton;
     private JButton volverAlInicioButton;
     private GUIPrincipal controlador;
     private GestorPublicacion gestorPublicacion;
@@ -88,33 +87,6 @@ public class Ofertas {
             }
         });
 
-//        // Listener para tablaContraOfertas
-//        tablaContraOfertas.getSelectionModel().addListSelectionListener(e -> {
-//            CONTRAOFERTAButton.setEnabled(false);
-//            if (!e.getValueIsAdjusting()) {
-//                int selectedRow = tablaContraOfertas.getSelectedRow();
-//                if (selectedRow >= 0) {
-//                    // Habilitar el botón
-//                    CONTRAOFERTAButton.setEnabled(true);
-//
-//                    // Obtener información de la publicación seleccionada
-//                    String titulo = (String) tablaContraOfertas.getValueAt(selectedRow, 0);
-//                    String usuario = (String) tablaContraOfertas.getValueAt(selectedRow, 1);
-//
-//                    // Buscar la publicación y asignarla al intercambio
-//                    for (Publicacion publicacion : gestorPublicacion.getPublicaciones()) {
-//                        if (publicacion.getTitulo().equals(titulo) &&
-//                                publicacion.getPropietario().getUsuario().equals(usuario)) {
-//                            publicacionSeleccionada = publicacion;
-//                            CONTRAOFERTAButton.setEnabled(true);
-//                            break;
-//                        }
-//                    }
-//                } else {
-//                    CONTRAOFERTAButton.setEnabled(false); // Deshabilitar si no hay selección
-//                }
-//            }
-//        });
 
         // Configurar evento para el botón CONTRAOFERTA
         CONTRAOFERTAButton.addActionListener(e -> {
@@ -189,55 +161,13 @@ public class Ofertas {
                 if(!intercambio.getPublicacionOferente().estaDisponible()){
                 modeloTabla.addRow(new Object[]{
                         intercambio.getPublicacionOferente().getTitulo(),
-//                        intercambio.getEstudianteOferente().getUsuario(),
                         intercambio.getPublicacionOferente().getPropietario().getUsuario(),
                         intercambio.getPublicacionOferente().getTipo()
                 });}
             }
         }
-//    private void configurarEventos() {
-//        tablaOfertas.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-//            @Override
-//            public void valueChanged(ListSelectionEvent e) {
-//                if(!e.getValueIsAdjusting()){
-//                    int selectedRow = tablaOfertas.getSelectedRow();
-//                    if (selectedRow>=0){
-//                        String titulo = (String) tablaOfertas.getValueAt(selectedRow,0);
-//                        for (Publicacion pub : controlador.getGestorPublicacion().getPublicaciones()){
-//                            if (pub.getTitulo().equals(titulo)){
-//                                publicacionSeleccionada = pub;
-//                                break;
-//                            }
-//                        }
-//                    }
-//                }
-//            }
         };
-//        CONTRAOFERTAButton.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                if (publicacionSeleccionada != null) {
-//                    try {
-//
-//                        int Resultado = estudianteActual.iniciarIntercambio(publicacionSeleccionada);
-//                        if(Resultado==-1)
-//                            throw new RuntimeException();
-//                        JOptionPane.showMessageDialog(ofertasPanelPrincipal,
-//                                "Se ha enviado tu interés por la publicación",
-//                                "Éxito",
-//                                JOptionPane.INFORMATION_MESSAGE);
-//                    } catch (Exception ex) {
-//                        JOptionPane.showMessageDialog(ofertasPanelPrincipal,
-//                                "No se pudo seleccionar la publicación",
-//                                "Error",
-//                                JOptionPane.ERROR_MESSAGE);
-//                    }
-//
-//                }
-//            }
-//        });
-//    }
-//
+
     private void inicializarTablaOfertas() {
         modeloTabla = new DefaultTableModel(new String[]{"Titulo","Estudiante","Tipo"},0){
             @Override
@@ -249,9 +179,6 @@ public class Ofertas {
         tablaOfertas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         tablaOfertas.getTableHeader().setReorderingAllowed(false);
 
-//        texto.setEditable(false);
-//        texto.setWrapStyleWord(true);
-//        texto.setLineWrap(true);
     }
 
     public JPanel getPanel() {
