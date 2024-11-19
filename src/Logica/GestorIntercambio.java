@@ -45,31 +45,31 @@ public class GestorIntercambio {
     intercambio.establecerPublicacionReceptor(publicacionReceptor);
     intercambioDAO.actualizar(intercambio);
 }
-    public void aceptarPropuesta(Intercambio intercambio, Estudiante estudiante) {
-    // Validar que la cuenta sea participante del intercambio
-    if (!esParticipante(estudiante, intercambio)) {
-        throw new IllegalArgumentException("La cuenta no es participante del intercambio");
-    }
-    // Validar que haya una contraoferta establecida
-    if (intercambio.getPublicacionReceptor() == null) {
-        throw new IllegalStateException("No hay una contraoferta establecida");
-    }
-
-    intercambio.aceptarIntercambio(estudiante);
-    intercambioDAO.actualizar(intercambio);
-
-    // Si ambos aceptaron, actualizar el estado de las publicaciones
-    if (intercambio.getEstado() == "EN_PROCESO") {
-        actualizarEstadoPublicaciones(intercambio);
-    }
-}
-public void rechazarPropuesta(Intercambio intercambio, Estudiante estudiante) {
-    if (!esParticipante(estudiante, intercambio)) {
-        throw new IllegalArgumentException("La cuenta no es participante del intercambio");
-    }
-    intercambio.rechazarIntercambio(estudiante);
-    intercambioDAO.actualizar(intercambio);
-}
+//    public void aceptarPropuesta(Intercambio intercambio, Estudiante estudiante) {
+//    // Validar que la cuenta sea participante del intercambio
+//    if (!esParticipante(estudiante, intercambio)) {
+//        throw new IllegalArgumentException("La cuenta no es participante del intercambio");
+//    }
+//    // Validar que haya una contraoferta establecida
+//    if (intercambio.getPublicacionReceptor() == null) {
+//        throw new IllegalStateException("No hay una contraoferta establecida");
+//    }
+//
+//    intercambio.aceptarIntercambio(estudiante);
+//    intercambioDAO.actualizar(intercambio);
+//
+//    // Si ambos aceptaron, actualizar el estado de las publicaciones
+//    if (intercambio.getEstado() == "EN_PROCESO") {
+//        actualizarEstadoPublicaciones(intercambio);
+//    }
+//}
+//public void rechazarPropuesta(Intercambio intercambio, Estudiante estudiante) {
+//    if (!esParticipante(estudiante, intercambio)) {
+//        throw new IllegalArgumentException("La cuenta no es participante del intercambio");
+//    }
+//    intercambio.rechazarIntercambio(estudiante);
+//    intercambioDAO.actualizar(intercambio);
+//}
     private boolean validarCondicionesIniciales(Estudiante estudianteOferente,  Publicacion publicacion) {
         boolean x = publicacion.estaDisponible() && !publicacion.perteneceA(estudianteOferente.getUsuario()) ;
         return x;
@@ -79,11 +79,11 @@ public void rechazarPropuesta(Intercambio intercambio, Estudiante estudiante) {
             estudiante.equals(intercambio.getEstudianteReceptor());
 }
 
-    private void actualizarEstadoPublicaciones(Intercambio intercambio) {
-        // Actualizar estado de ambas publicaciones a "en proceso de intercambio"
-        intercambio.getPublicacionOferente().marcarEnProceso();
-        intercambio.getPublicacionReceptor().marcarEnProceso();
-    }
+//    private void actualizarEstadoPublicaciones(Intercambio intercambio) {
+//        // Actualizar estado de ambas publicaciones a "en proceso de intercambio"
+//        intercambio.getPublicacionOferente().marcarEnProceso();
+//        intercambio.getPublicacionReceptor().marcarEnProceso();
+//    }
 
     public boolean recopilarOfertas() {
         try {

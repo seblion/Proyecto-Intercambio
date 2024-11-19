@@ -1,6 +1,5 @@
 package Logica;
 
-import Persistencia.IntercambioDAO;
 import Persistencia.PublicacionDAO;
 
 import java.util.ArrayList;
@@ -44,9 +43,13 @@ public class GestorPublicacion {
     }
 
     // Metodo para eliminar una publicación por ID
-    public void eliminarPublicacion(int id) {
-        publicaciones.removeIf(pub -> pub.getId() == id);
-        System.out.println("Publicación " + id + " eliminada.");
+    public int eliminarPublicacion(Publicacion publicacion) {
+        try {
+            this.dao.eliminarPublicacion(publicacion.getId());
+            return 1;
+        } catch (Exception e) {
+            return -1;
+        }
     }
 
     // Metodo para obtener una publicación por ID
@@ -75,4 +78,11 @@ public class GestorPublicacion {
     }
 
 
+    public boolean tieneRelaciones(Publicacion publicacionSeleccionada) {
+        try {
+            return this.dao.tieneRelaciones(publicacionSeleccionada.getId());
+        } catch (Exception e) {
+            return true;
+        }
+    }
 }

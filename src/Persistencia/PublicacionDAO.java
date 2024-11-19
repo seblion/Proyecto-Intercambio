@@ -2,6 +2,8 @@ package Persistencia;
 import Logica.Estudiante;
 import Logica.Publicacion;
 
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.*;
 import java.util.List;
 
@@ -193,6 +195,56 @@ public  class PublicacionDAO extends DAO{
         } finally {
             desconectarBase();
         }
+    }
+
+    public void eliminarPublicacion(int idPublicacion) throws Exception {
+        try {
+            //Armado de la sentencia nativa query con el String pasado como parámetro
+            String sql = "DELETE FROM PUBLICACION WHERE IDPUBLICACION = " + idPublicacion;
+            //Ejecuto el método para actualizar la base de datos que no devuelve ningún resultado
+            insertarModificarEliminar(sql);
+
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            desconectarBase();
+        }
+    }
+
+    public boolean tieneRelaciones(int idPublicacion) throws Exception {
+        try {
+            // Construcción de la consulta SQL
+            String sql = "SELECT 1 FROM PUBLICACION WHERE IDINTERCAMBIO IS NOT NULL AND IDPUBLICACION = " + idPublicacion;
+
+            // Ejecutar la consulta y analizar el resultado
+            conectarBase(); // Método para conectar a la base de datos
+            Statement stmt = conexion.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+
+            // Verifica si hay algún resultado
+            boolean tieneRelacion = rs.next();
+
+            rs.close();
+            stmt.close();
+            return tieneRelacion; // Devuelve true si hay relación, false en caso contrario
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            desconectarBase(); // Cierra la conexión
+        }
+//
+//        try {
+//            //Armado de la sentencia nativa query con el String pasado como parámetro
+//            String sql = "SELECT * FROM PUBLICACION WHERE IDINTERCAMBIO IS NULL AND IDPUBLICACION =" + idPublicacion;
+//            //Ejecuto el método para actualizar la base de datos que no devuelve ningún resultado
+//            insertarModificarEliminar(sql);
+//
+//        } catch (Exception e) {
+//            throw e;
+//        } finally {
+//            desconectarBase();
+//        }
+
     }
 }
 

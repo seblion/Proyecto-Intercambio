@@ -20,6 +20,7 @@ public class GUIPrincipal extends JFrame {
     Interaccion interaccion;
     private Estudiante estudianteActual;
     public MisIntercambios misIntercambios;
+    protected MisPublicaciones misPublicaciones;
 
     public GUIPrincipal(){
         setTitle("Poli Trueque");
@@ -69,5 +70,7 @@ public class GUIPrincipal extends JFrame {
         mainPanel.add(interaccion.getPanel(),"Interaccion");
         misIntercambios = new MisIntercambios(this,estudianteVerificado);
         mainPanel.add(misIntercambios.getPanel(),"MisIntercambios");
+        misPublicaciones = new MisPublicaciones(this,estudianteVerificado);
+        mainPanel.add(misPublicaciones.getPanel(),"MisPublicaciones");
     }
 }
