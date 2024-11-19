@@ -18,7 +18,6 @@ public class GestorEstudiante {
             return -1;
         Estudiante nuevoEstudiante= new Estudiante(nombre, apellido, correo, celular, usuario, clave);
 
-        //todo:analizar uso de interfaz
         try {
             this.dao.guardarEstudiante(nuevoEstudiante.registro());
 

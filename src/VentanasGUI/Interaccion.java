@@ -75,8 +75,4 @@ public class Interaccion {
         return interaccionPanel;
     }
 
-//    public void agregarEstudiante(Estudiante estudianteVerificado) {
-//        estudianteActual=estudianteVerificado;
-//
-//    }
 }

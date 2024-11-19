@@ -86,4 +86,18 @@ public class IntercambioDAO extends DAO {
             desconectarBase();
         }
     }
+
+    public void eliminarIntercambio(String idIntercambio) throws Exception {
+        try {
+            //Armado de la sentencia nativa query con el String pasado como parámetro
+            String sql = "DELETE FROM INTERCAMBIO WHERE IDINTERCAMBIO = " + idIntercambio;
+            //Ejecuto el método para actualizar la base de datos que no devuelve ningún resultado
+            insertarModificarEliminar(sql);
+
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            desconectarBase();
+        }
+    }
 }

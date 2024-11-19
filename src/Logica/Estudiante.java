@@ -3,7 +3,6 @@ package Logica;
 import Persistencia.EstudianteDAO;
 
 public class Estudiante {
-//    private static Persistencia.EstudianteDAO dao;
     private GestorPublicacion gestorPublicacion;
     private String idEstudiante;
     private String nombre;

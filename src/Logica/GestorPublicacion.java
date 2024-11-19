@@ -27,20 +27,20 @@ public class GestorPublicacion {
         publicaciones.add(nuevaPublicacion);
         return 1;
     }
-
-    // Metodo para editar una publicación por ID
-    public void editarPublicacion(int id, String nuevoTitulo, String nuevaDescripcion, String nuevoTipo) {
-        for (Publicacion pub : publicaciones) {
-            if (pub.getId() == id) {
-                pub.setTitulo(nuevoTitulo);
-                pub.setDescripcion(nuevaDescripcion);
-                pub.setTipo(nuevoTipo);
-                System.out.println("Publicación actualizada: " + pub);
-                return;
-            }
-        }
-        System.out.println("Publicación " + id + " no encontrada.");
-    }
+//todo:borrar
+//    // Metodo para editar una publicación por ID
+//    public void editarPublicacion(int id, String nuevoTitulo, String nuevaDescripcion, String nuevoTipo) {
+//        for (Publicacion pub : publicaciones) {
+//            if (pub.getId() == id) {
+//                pub.setTitulo(nuevoTitulo);
+//                pub.setDescripcion(nuevaDescripcion);
+//                pub.setTipo(nuevoTipo);
+//                System.out.println("Publicación actualizada: " + pub);
+//                return;
+//            }
+//        }
+//        System.out.println("Publicación " + id + " no encontrada.");
+//    }
 
     // Metodo para eliminar una publicación por ID
     public int eliminarPublicacion(Publicacion publicacion) {
@@ -52,15 +52,16 @@ public class GestorPublicacion {
         }
     }
 
-    // Metodo para obtener una publicación por ID
-    public Publicacion obtenerPublicacionPorId(int id) {
-        for (Publicacion pub : publicaciones) {
-            if (pub.getId() == id) {
-                return pub;
-            }
-        }
-        return null; // Retorna null si no se encuentra la publicación
-    }
+//    todo:borrar
+// Metodo para obtener una publicación por ID
+//    public Publicacion obtenerPublicacionPorId(int id) {
+//        for (Publicacion pub : publicaciones) {
+//            if (pub.getId() == id) {
+//                return pub;
+//            }
+//        }
+//        return null; // Retorna null si no se encuentra la publicación
+//    }
 
 
     // Metodo para obtener la lista de publicaciones

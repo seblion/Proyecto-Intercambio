@@ -39,16 +39,21 @@ public class MisIntercambios {
                 if (!e.getValueIsAdjusting()) {
                     int selectedRow = tablaIntercambios.getSelectedRow();
                     if (selectedRow >= 0) {
+                        CONFIRMARButton.setEnabled(false); // Habilitar el botón
+                        RECHAZARButton.setEnabled(false); // Habilitar el botón
+
                         String publicacionOferente = (String) tablaIntercambios.getValueAt(selectedRow, 1);
                         for (Intercambio intercambio : gestorIntercambio.getIntercambios()) {
                             if (intercambio.getPublicacionOferente().getTitulo().equals(publicacionOferente)) {
                                 intercambioSeleccionado = intercambio;
+                                nombreLabel.setText("**********");
+                                celularLabel.setText("##########");
                                 if(intercambioSeleccionado.getEstado().equals("FINALIZADO")){
                                     if(intercambioSeleccionado.getEstudianteReceptor().getUsuario().equals(estudianteActual.getUsuario())) {
                                         nombreLabel.setText(intercambioSeleccionado.getEstudianteOferente().getNombreCompleto());
                                         celularLabel.setText(intercambioSeleccionado.getEstudianteOferente().getCelular());
                                         break;
-                                    } else{
+                                    } else if (intercambioSeleccionado.getEstudianteOferente().getUsuario().equals(estudianteActual.getUsuario())){
                                         nombreLabel.setText(intercambioSeleccionado.getEstudianteReceptor().getNombreCompleto());
                                         celularLabel.setText(intercambioSeleccionado.getEstudianteReceptor().getCelular());
                                         break;
@@ -57,6 +62,9 @@ public class MisIntercambios {
                                 //todo: review
                                 if(intercambio.getIdInteresado().equals(estudianteActual.getIdEstudiante()) && intercambio.getEstado()!="FINALIZADO") {
                                     CONFIRMARButton.setEnabled(true); // Habilitar el botón
+                                    if(!intercambio.getEstado().equals("FINALIZADO"))
+                                        RECHAZARButton.setEnabled(true); // Habilitar el botón
+
                                 }
                                 break;
                             }
@@ -70,6 +78,40 @@ public class MisIntercambios {
             @Override
             public void actionPerformed(ActionEvent e) {
                 controlador.cambiarVentana("Interaccion");
+            }
+        });
+
+        RECHAZARButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (intercambioSeleccionado != null) {
+                    try {
+                        //todo: ELIMINAR EL INTERCAMBIO Y DESVINCULAR LOS PRODUCTOS
+                          if(!gestorIntercambio.eliminarIntercambio(intercambioSeleccionado))
+                              throw new RuntimeException();
+
+                        JOptionPane.showMessageDialog(
+                                panelPrincipal,
+                                "Se ha rechazado el proceso de intercambio.",
+                                "Éxito",
+                                JOptionPane.INFORMATION_MESSAGE
+                        );
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(
+                                panelPrincipal,
+                                "Error de seleccion.",
+                                "Error",
+                                JOptionPane.ERROR_MESSAGE
+                        );
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(
+                            panelPrincipal,
+                            "No se ha seleccionado un producto para rechazar.",
+                            "Advertencia",
+                            JOptionPane.WARNING_MESSAGE
+                    );
+                }
             }
         });
 

@@ -6,7 +6,6 @@ public class Publicacion {
     private String descripcion;
     private String tipo; // "Producto" o "Servicio"
     private int disponible;
-    private boolean proceso; //todo
     private Estudiante propietario;
 
     public Publicacion(String titulo, String descripcion, String tipo, Estudiante propietario) {
@@ -15,7 +14,6 @@ public class Publicacion {
         this.tipo = tipo;
         this.propietario = propietario;
         this.disponible = 1;
-        this.proceso=false;
     }
 
     public Publicacion() {
@@ -79,9 +77,6 @@ public class Publicacion {
         return disponible==1;
     }
 
-    public void marcarEnProceso() {
-        this.proceso = true;
-    }
 
     public boolean perteneceA(String usuario) {
         if(this.propietario == null||usuario==null){
